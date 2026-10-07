@@ -1,0 +1,38 @@
+Vender na hora certa
+- numero de abertura
+-- 15 mil/ha
+é a ordem de grandeza do custo para produzir um hectare de arroz no RS na referencia do desafio
+
+
+- dado atualizado
+conab estimou a safra brasileira 2025/26 em 361.7 milhoes de graos 11 milhoes de litros
+
+- pressao logistica
+
+IBGE registrou 233 milhoes de capacidade de armazenagem no 2 semestre de 2025. O gargalo não é só preço é caixa armazenagem e decisão
+
+
+quem sofre e em qual momento
+
+orizicultor - colhe quando muitos colhem, com pressao de prexço e vencimento de ontas
+
+pecuarista - vende animais quando falta caixa, não necessariamente no melhor momento
+
+cooperativa/ engenho / comprador - tem relação com adiantamento, fideliação riscos fluxo de oferta
+
+banco/ agente de credito - precisa avaliar risco historico e capacidade de pagamento
+
+-- por que o problema existe
+fluxo de caixa desalinhado: obrigações vencem proximas a colheita
+pouca armazenagem ou secagem: esperar pode ser inviavel
+dependencia de credito e adiantamento: dinheiro antecipado limita escolha futura
+decisão fragmentada: preço juros frete armazenagem e risco são analisados separadamente
+baixa flexibilidade 
+
+-- uma boa resposta precisa ter
+liquidez: ajuda o produtor a não vender por urgencia de caixa?
+decisão economica: mostra  margem real por saca/cabeça depois de frete juros e armazenagem
+risco: explica o risco de esperar e o custo de vender agora
+evidencia: consegue simular ganho/perda em uma venda real?
+
+
