@@ -86,6 +86,18 @@
 
       <div class="ep-teto" id="teto"></div>
 
+      <div class="ep-resumo">
+        <button type="button" id="btn-resumo" class="ep-botao">Gerar resumo para levar ao banco/comprador</button>
+        <div id="resumo-saida" hidden>
+          <div id="resumo-card"></div>
+          <div class="ep-resumo-botoes">
+            <button type="button" id="btn-baixar-img" class="ep-botao secundario">Baixar imagem</button>
+            <button type="button" id="btn-imprimir" class="ep-botao secundario">Imprimir / PDF</button>
+            <span id="resumo-msg" class="ep-resumo-msg" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
+
       <details class="ep-premissas">
         <summary>Coeficientes técnicos (faixas e fontes — edite para o seu caso)</summary>
         <div class="ep-params" id="premissas-tecnicas"></div>
@@ -155,6 +167,14 @@
       </table>
     </section>
 
+    <section id="fontes-sec">
+      <h2>Fontes</h2>
+      <p class="ep-intro">No RS, a casca de arroz passa de <b>~1,5 milhão de t/ano</b>. A energia da irrigação
+        pesa <b>7% do custo</b> (R$ 1.124/ha) e a água mais <b>9%</b> (R$ 1.384/ha) — esta ferramenta ataca
+        a energia e a renda do resíduo.</p>
+      <ul class="ep-fontes" id="fontes"></ul>
+    </section>
+
     <footer class="ep-rodape">
       HackatAgro × Sebrae RS · Alegrete/RS · Desafio 1 · Bioeconomia &amp; Energia · protótipo do MVP.
       Coeficientes e preços são referências a validar com IRGA, Emater e compradores da região.
@@ -164,12 +184,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
           integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin=""></script>
 
-  <!-- Scripts carregados em ordem: utilitários -> dados -> camadas -> orquestração -->
+  <!-- html2canvas: usado só para baixar o resumo como imagem (opcional) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+          integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin=""></script>
+
+  <!-- Scripts carregados em ordem: utilitários -> dados -> camadas -> resumo -> orquestração -->
   <script src="assets/js/formato.js"></script>
   <script src="assets/js/dados.js"></script>
   <script src="assets/js/inventario.js"></script>
   <script src="assets/js/rotas.js"></script>
   <script src="assets/js/consorcio.js"></script>
+  <script src="assets/js/resumo.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>

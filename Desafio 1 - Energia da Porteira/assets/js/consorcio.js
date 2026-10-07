@@ -64,6 +64,7 @@ function atualizarConsorcio() {
   if (circuloRaio) circuloRaio.setRadius(raio * 1000);
   if (marcadorUser) marcadorUser.setPopupContent(`<b>Sua propriedade</b><br>${n0(userResiduo)} t de resíduo/ano`);
 
+  estado.consorcio = { raio, soma, dentro, atingiu: soma >= ESCALA.usina_t_ano };
   renderEscala(soma, dentro);
 }
 

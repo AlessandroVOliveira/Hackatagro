@@ -203,6 +203,54 @@ details.ep-premissas[open] > summary::before { content: '▾ '; }
 
 .ep-rodape { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--nevoa); font-size: 0.82rem; color: var(--tinta-suave); }
 
+/* -------------------------------------------------- atores + faixa de payback */
+.ep-rota .ep-atores { font-size: 0.84rem; color: var(--tinta-suave); margin: 0.35rem 0 0; }
+.ep-rota .ep-atores b { color: var(--tinta); font-weight: 700; }
+.ep-faixa-pb { display: flex; flex-wrap: wrap; gap: 0.2rem 1.1rem; font-size: 0.8rem; color: var(--tinta-suave); margin: 0.35rem 0 0; }
+.ep-faixa-pb b { color: var(--tinta); font-variant-numeric: tabular-nums; }
+
+/* --------------------------------------------------------------- botões + resumo */
+.ep-botao {
+  font-family: var(--fonte); font-size: 0.95rem; font-weight: 700; cursor: pointer;
+  padding: 0.7rem 1.1rem; border-radius: 8px; border: 1.5px solid var(--lavoura);
+  background: var(--lavoura); color: #fff; min-height: 46px;
+}
+.ep-botao.secundario { background: var(--superficie); color: var(--lavoura); }
+.ep-resumo { margin: 1.25rem 0; }
+.ep-resumo-botoes { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.75rem; }
+.ep-resumo-msg { font-size: 0.85rem; color: var(--tinta-suave); }
+
+#resumo-card {
+  background: var(--superficie); border: 1px solid var(--nevoa); border-radius: 12px;
+  padding: 1.25rem 1.4rem; max-width: 560px; color: var(--tinta);
+}
+#resumo-card .rc-top { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--tinta); padding-bottom: 0.4rem; gap: 0.5rem; }
+#resumo-card .rc-top b { font-size: 1.3rem; font-weight: 900; color: var(--lavoura); }
+#resumo-card .rc-top span { font-size: 0.85rem; color: var(--tinta-suave); }
+#resumo-card .rc-perfil { font-size: 0.9rem; color: var(--tinta-suave); margin: 0.5rem 0 0.75rem; }
+#resumo-card .rc-rotulo { font-size: 0.9rem; color: var(--tinta-suave); margin: 0; }
+#resumo-card .rc-valor { font-size: clamp(2.2rem, 9vw, 3.2rem); font-weight: 900; color: var(--lavoura); line-height: 1; font-variant-numeric: tabular-nums; margin: 0.1rem 0 0.6rem; }
+#resumo-card .rc-vol { font-size: 0.9rem; color: var(--tinta); margin: 0 0 0.75rem; font-variant-numeric: tabular-nums; }
+#resumo-card .rc-tab { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+#resumo-card .rc-tab th { text-align: left; color: var(--lavoura); border-bottom: 1px solid var(--nevoa); padding: 0.3rem 0.4rem; }
+#resumo-card .rc-tab td { padding: 0.35rem 0.4rem; border-bottom: 1px solid var(--nevoa); }
+#resumo-card .rc-tab .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#resumo-card .rc-cons { font-size: 0.88rem; margin: 0.75rem 0 0; }
+#resumo-card .rc-rodape { font-size: 0.72rem; color: var(--tinta-suave); margin: 0.9rem 0 0; }
+
+/* ------------------------------------------------------------------------ fontes */
+.ep-fontes { margin: 0.75rem 0; padding-left: 1.1rem; }
+.ep-fontes li { font-size: 0.9rem; margin: 0.4rem 0; color: var(--tinta-suave); }
+.ep-fontes li b { color: var(--tinta); }
+
+/* ---------------------------------------------------------------------- impressão */
+@media print {
+  body * { visibility: hidden; }
+  #resumo-card, #resumo-card * { visibility: visible; }
+  #resumo-card { position: absolute; left: 0; top: 0; width: 100%; max-width: 100%; border: none; }
+  body { background: #fff; }
+}
+
 /* --------------------------------------------------------------------- celular */
 @media (max-width: 640px) {
   .ep-wrap { padding: 1rem 1rem 3rem; }

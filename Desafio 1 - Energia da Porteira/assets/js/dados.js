@@ -19,8 +19,8 @@ function faixa(min, med, max, unid, fonte) {
 
 const COEFICIENTES = {
   arroz: {
-    produtividade: faixa(7.0, 8.5, 10.0, "t/ha", "Produtividade média do arroz irrigado no RS (IRGA)."),
-    casca_fracao: faixa(0.18, 0.20, 0.22, "t casca / t arroz", "Casca ≈ 20% do peso do grão colhido (desafio; Embrapa)."),
+    produtividade: faixa(7.0, 8.5, 10.0, "t/ha", "IRGA — produtividade média do arroz irrigado no RS."),
+    casca_fracao: faixa(0.18, 0.20, 0.22, "t casca / t arroz", "Casca ≈ 20% do peso do grão (Emater/RS; estudo Redalyc)."),
     palha_grao: faixa(0.75, 1.0, 1.5, "t palha / t grão", "Relação palha/grão do arroz (literatura)."),
     palha_recolhivel: faixa(0.30, 0.40, 0.50, "fração", "Parte da palha que dá para recolher sem tirar a cobertura do solo."),
   },
@@ -46,7 +46,7 @@ const COEFICIENTES = {
 };
 
 const PRECOS = {
-  energia_irrigacao: faixa(800, 1124, 1500, "R$/ha por safra", "Custo de energia da irrigação (desafio: R$ 1.124/ha)."),
+  energia_irrigacao: faixa(800, 1124, 1500, "R$/ha por safra", "Emater/RS, safra 2021/22: energia = 7% do custo, R$ 1.124/ha."),
   tarifa_energia: faixa(0.45, 0.60, 0.80, "R$/kWh", "Tarifa de energia elétrica rural/irrigação."),
   energia_termica: faixa(0.15, 0.25, 0.35, "R$/kWh", "Custo do calor que a biomassa substitui (lenha/GLP na secagem)."),
   casca: faixa(30, 50, 90, "R$/t", "Preço de venda da casca de arroz (cerâmicas, termelétricas)."),
@@ -100,3 +100,31 @@ const PROPRIEDADES = [
   { nome: "Sítio Vacacaí", tipo: "Orizicultor", lat: -29.700, lng: -55.690, residuo_t_ano: 760 },
   { nome: "Fazenda Capivari", tipo: "Misto", lat: -29.955, lng: -55.860, residuo_t_ano: 690 },
 ];
+
+/* Fontes citadas na tela (seção "Fontes" e premissas). */
+const FONTES = [
+  {
+    nome: "Emater/RS — Custos de produção do arroz irrigado (safra 2021/22)",
+    detalhe: "Energia da irrigação = 7% do custo (R$ 1.124/ha); água = 9% (R$ 1.384/ha).",
+  },
+  {
+    nome: "Estudo publicado na Redalyc",
+    detalhe: "Volume de casca estimado sobre a safra gaúcha: ~1,5 milhão de t/ano no RS (casca ≈ 20% do peso do arroz).",
+  },
+  {
+    nome: "IRGA — Instituto Rio Grandense do Arroz",
+    detalhe: "Produtividade média do arroz irrigado no RS.",
+  },
+  {
+    nome: "Embrapa e literatura técnica",
+    detalhe: "Coeficientes de resíduo (palha, esterco), poder calorífico e rendimento de biodigestão.",
+  },
+];
+
+/* Contexto regional, usado no pitch. */
+const REGIONAL = {
+  casca_rs_t_ano: 1500000, // ~1,5 milhão de t de casca por ano no RS
+  energia_pct_custo: 0.07, // energia = 7% do custo do arroz
+  agua_pct_custo: 0.09,    // água = 9%
+  agua_rs_ha: 1384,        // R$/ha
+};

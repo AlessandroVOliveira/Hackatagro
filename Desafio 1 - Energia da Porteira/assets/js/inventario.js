@@ -5,7 +5,7 @@
 
 'use strict';
 
-function lerInventario() {
+function lerInventario(p = P) {
   const area = num('area_arroz');
   const prod = num('produtividade');
   const cabecas = num('cabecas');
@@ -13,15 +13,15 @@ function lerInventario() {
   const temEngenho = el('engenho').value === 'sim';
 
   const grao_t = area * prod;
-  const casca_t = temEngenho ? grao_t * P.casca_fracao : 0;
-  const palha_t = grao_t * P.palha_grao * P.palha_recolhivel;
+  const casca_t = temEngenho ? grao_t * p.casca_fracao : 0;
+  const palha_t = grao_t * p.palha_grao * p.palha_recolhivel;
   const fracManejo = COEFICIENTES.esterco.recolhivel[manejo].med;
-  const esterco_t = (cabecas * P.esterco_kg * 365 * fracManejo) / 1000; // kg -> t
+  const esterco_t = (cabecas * p.esterco_kg * 365 * fracManejo) / 1000; // kg -> t
 
-  const energia_casca_kwh = casca_t * 1000 * P.pci_casca;
-  const energia_palha_kwh = palha_t * 1000 * P.pci_palha;
-  const biogas_m3 = esterco_t * P.biogas_t;
-  const biogas_kwh_el = biogas_m3 * P.biogas_kwh_el;
+  const energia_casca_kwh = casca_t * 1000 * p.pci_casca;
+  const energia_palha_kwh = palha_t * 1000 * p.pci_palha;
+  const biogas_m3 = esterco_t * p.biogas_t;
+  const biogas_kwh_el = biogas_m3 * p.biogas_kwh_el;
 
   return {
     area, prod, cabecas, manejo, temEngenho,

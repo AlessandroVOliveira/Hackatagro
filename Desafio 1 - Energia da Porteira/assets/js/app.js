@@ -45,7 +45,33 @@ const PARAMS = [
 const P = {};
 PARAMS.forEach((p) => { P[p.id] = p.ref.med; });
 
-const estado = { inv: null };
+const estado = { inv: null, rotas: [], consorcio: null };
+
+/* Direção de cada parâmetro no resultado de uma rota, para os cenários
+ * (feature 3): +1 = melhor quando alto (preço, rendimento); −1 = melhor quando
+ * baixo (custo, investimento); 0 = não entra no payback das rotas. */
+const DIRECAO = {
+  casca_fracao: 1, palha_grao: 1, palha_recolhivel: 1, pci_casca: 1, pci_palha: 1,
+  secagem_t_grao: 1, esterco_kg: 1, biogas_t: 1, biogas_kwh_el: 1,
+  preco_casca: 1, preco_palha: 1, preco_briquete: 1, tarifa: 1, energia_termica: 1, rend_briquete: 1,
+  energia_ha: 0,
+  custo_venda: -1, custo_briquete: -1, custo_secagem: -1, custo_biodig_frac: -1,
+  inv_enfardadeira: -1, inv_briquetadeira: -1, inv_biodigestor: -1, inv_secador: -1,
+};
+
+/* Conjunto de parâmetros no extremo otimista ou pessimista das faixas. */
+function cenarioParams(kind) {
+  const s = Object.assign({}, P);
+  PARAMS.forEach((p) => {
+    const d = DIRECAO[p.id] || 0;
+    if (d === 0) return;
+    const bomAlto = d > 0;
+    s[p.id] = (kind === 'otim') === bomAlto ? p.ref.max : p.ref.min;
+  });
+  return s;
+}
+
+const porNome = (arr) => { const o = {}; arr.forEach((r) => { o[r.nome] = r; }); return o; };
 
 /* ------------------------------------------------------------- premissas */
 function passo(med) {
@@ -65,7 +91,7 @@ function renderPremissas() {
       <div class="ep-param">
         <label for="prm_${p.id}">${p.label}</label>
         <input type="number" id="prm_${p.id}" data-pid="${p.id}" value="${p.ref.med}" step="${passo(p.ref.med)}" inputmode="decimal">
-        <span class="faixa">faixa ${fmtT.format(p.ref.min)}–${fmtT.format(p.ref.max)} ${p.ref.unid}</span>
+        <span class="faixa">faixa ${fmtFaixa.format(p.ref.min)}–${fmtFaixa.format(p.ref.max)} ${p.ref.unid}</span>
         <span class="fonte">${p.ref.fonte}</span>
       </div>`).join('');
   });
@@ -75,7 +101,19 @@ function renderPremissas() {
 function recalcTudo() {
   estado.inv = lerInventario();
   renderInventario(estado.inv);
+
   const rotas = calcularRotas(estado.inv);
+
+  // cenários (feature 3): payback otimista/pessimista com os coeficientes nos extremos
+  const pOtim = cenarioParams('otim'), pPess = cenarioParams('pess');
+  const otim = porNome(calcularRotas(lerInventario(pOtim), pOtim));
+  const pess = porNome(calcularRotas(lerInventario(pPess), pPess));
+  rotas.forEach((r) => {
+    if (otim[r.nome]) { r.payback_otim = otim[r.nome].payback; r.net_otim = otim[r.nome].valor_anual; }
+    if (pess[r.nome]) { r.payback_pess = pess[r.nome].payback; r.net_pess = pess[r.nome].valor_anual; }
+  });
+
+  estado.rotas = rotas;
   renderRotas(rotas);
   renderFicha(rotas);
   renderTeto(estado.inv);
@@ -102,8 +140,13 @@ function aplicarPreset(nome) {
   recalcTudo();
 }
 
+function renderFontes() {
+  el('fontes').innerHTML = FONTES.map((f) => `<li><b>${f.nome}.</b> ${f.detalhe}</li>`).join('');
+}
+
 function iniciar() {
   renderPremissas();
+  renderFontes();
   initMapa();
 
   el('form-inventario').addEventListener('input', () => { marcarPerfil(null); recalcTudo(); });
@@ -123,6 +166,11 @@ function iniciar() {
   el('premissas-economicas').addEventListener('input', onParam);
 
   el('raio').addEventListener('input', atualizarConsorcio);
+
+  // resumo compartilhável (feature 4)
+  el('btn-resumo').addEventListener('click', gerarResumo);
+  el('btn-baixar-img').addEventListener('click', baixarResumoImagem);
+  el('btn-imprimir').addEventListener('click', () => window.print());
 
   aplicarPreset('orizicultor');
 }

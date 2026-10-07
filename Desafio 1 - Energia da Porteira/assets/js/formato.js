@@ -6,6 +6,7 @@
 const fmt0 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
 const fmtT = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 });
 const fmtPay = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const fmtFaixa = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }); // faixas mín–máx das premissas
 
 function brl(v, casas = 0) {
   return 'R$ ' + new Intl.NumberFormat('pt-BR', { minimumFractionDigits: casas, maximumFractionDigits: casas }).format(v);
