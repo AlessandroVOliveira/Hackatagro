@@ -65,6 +65,7 @@ Os valores padrão abaixo são referências para a demonstração. Ainda precisa
 
 ```
 app.py                  interface Streamlit
+hora_certa/ui.py        estilos e componentes visuais (responsivo para celular)
 hora_certa/dados.py     download e leitura das séries (CEPEA, BCB)
 hora_certa/sazonalidade.py  razões mês/colheita por ano
 hora_certa/cenarios.py  conta líquida de cada cenário (arroz e gado)
