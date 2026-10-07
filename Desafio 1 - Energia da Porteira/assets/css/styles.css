@@ -1,0 +1,217 @@
+/* Energia da Porteira — identidade visual.
+ * Mesma paleta e tipografia do Hora Certa (Desafio 3), para o repo ficar coeso:
+ * verde da lavoura, dourado da casca de arroz, barro vermelho da campanha. */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&display=swap');
+
+:root {
+  --lavoura: #1E4D3A;
+  --lavoura-claro: #CFE0D3;
+  --casca: #C8952B;
+  --casca-claro: #F0E2C4;
+  --barro: #9A3F24;
+  --papel: #FAFAF7;
+  --superficie: #FFFFFF;
+  --tinta: #18201B;
+  --tinta-suave: #58625B;
+  --nevoa: #DFE4DC;
+
+  --fonte: Archivo, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fonte);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+p, li { font-size: 1rem; }
+
+.ep-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 2.5rem 0 0.25rem;
+}
+h3 { font-size: 1.05rem; font-weight: 700; margin: 1.5rem 0 0.4rem; }
+
+a { color: var(--lavoura); }
+
+/* --------------------------------------------------------------- marca + nav */
+.ep-marca { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+.ep-marca b {
+  font-size: 2rem; font-weight: 900; letter-spacing: -0.02em;
+  color: var(--lavoura); line-height: 1;
+}
+.ep-marca span { color: var(--tinta-suave); font-size: 0.95rem; max-width: 34em; }
+
+.ep-nav {
+  position: sticky; top: 0; z-index: 500;
+  display: flex; gap: 0.4rem; flex-wrap: wrap;
+  margin: 1.1rem 0 0.5rem;
+  padding: 0.6rem 0;
+  background: color-mix(in srgb, var(--papel) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--nevoa);
+}
+.ep-nav a {
+  text-decoration: none; color: var(--tinta-suave);
+  font-weight: 700; font-size: 0.85rem;
+  padding: 0.35rem 0.7rem; border-radius: 999px; border: 1px solid var(--nevoa);
+  background: var(--superficie);
+}
+.ep-nav a .n { color: var(--casca); margin-right: 0.3rem; }
+
+.ep-intro { color: var(--tinta-suave); max-width: 40em; margin: 0.75rem 0 0; }
+
+/* -------------------------------------------------------------------- perfis */
+.ep-perfis { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.75rem 0 1rem; }
+.ep-perfil {
+  flex: 1 1 10rem; min-width: 0;
+  text-align: left; cursor: pointer;
+  padding: 0.7rem 0.85rem; border-radius: 8px;
+  border: 1.5px solid var(--nevoa); background: var(--superficie);
+  font-family: var(--fonte);
+}
+.ep-perfil b { display: block; font-size: 0.95rem; font-weight: 700; color: var(--tinta); }
+.ep-perfil small { display: block; color: var(--tinta-suave); font-size: 0.8rem; margin-top: 0.15rem; }
+.ep-perfil[aria-pressed="true"] { border-color: var(--lavoura); background: var(--lavoura-claro); }
+
+/* --------------------------------------------------------------------- forms */
+.ep-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem 1rem; }
+.ep-campo { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+.ep-campo.full { grid-column: 1 / -1; }
+.ep-campo label { font-size: 0.85rem; font-weight: 700; color: var(--tinta-suave); }
+.ep-campo .dica { font-size: 0.78rem; font-weight: 400; color: var(--tinta-suave); }
+
+input, select {
+  font-family: var(--fonte);
+  font-size: 16px; /* 16px evita o zoom automático do iOS */
+  font-variant-numeric: tabular-nums;
+  padding: 0.55rem 0.6rem;
+  border: 1.5px solid var(--nevoa); border-radius: 7px;
+  background: var(--superficie); color: var(--tinta);
+  min-height: 46px; width: 100%;
+}
+input:focus, select:focus, .ep-perfil:focus-visible, .ep-nav a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--casca); outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------- ficha / destaque */
+.ep-ficha {
+  border-top: 3px solid var(--tinta);
+  margin: 1.5rem 0 0.5rem; padding-top: 0.9rem;
+}
+.ep-ficha .rotulo { font-size: 1rem; color: var(--tinta-suave); margin: 0; }
+.ep-numerao {
+  font-size: clamp(2.6rem, 11vw, 4.4rem); font-weight: 900;
+  line-height: 0.95; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+  color: var(--lavoura); margin: 0.1rem 0 0.1rem;
+}
+.ep-numerao small { font-size: 0.3em; font-weight: 700; color: var(--tinta-suave); margin-left: 0.3rem; }
+.ep-ficha .frase { font-size: 1.05rem; max-width: 40em; margin: 0.25rem 0 0; }
+.ep-ficha .frase b { color: var(--lavoura); }
+
+/* números de apoio (volume + energia) */
+.ep-volumes { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: 0.75rem; margin: 1.1rem 0; }
+.ep-volumes div { border-left: 3px solid var(--nevoa); padding-left: 0.6rem; }
+.ep-volumes small { display: block; font-size: 0.8rem; color: var(--tinta-suave); }
+.ep-volumes strong { font-size: 1.25rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.ep-volumes .u { font-size: 0.8rem; font-weight: 600; color: var(--tinta-suave); }
+.ep-volumes div.vazio { opacity: 0.45; }
+
+/* ------------------------------------------------------------ teto de invest */
+.ep-teto {
+  background: var(--casca-claro); border: 1px solid color-mix(in srgb, var(--casca) 40%, var(--nevoa));
+  border-radius: 10px; padding: 0.9rem 1rem; margin: 1rem 0;
+}
+.ep-teto b { color: #8a6418; }
+
+/* ------------------------------------------------------------------- rotas */
+.ep-rotas { margin: 0.5rem 0 0; }
+.ep-rota { padding: 0.85rem 0; border-bottom: 1px solid var(--nevoa); }
+.ep-rota:first-child { border-top: 1px solid var(--nevoa); }
+.ep-rota header { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.ep-rota h4 { font-size: 1rem; font-weight: 700; margin: 0; color: var(--tinta); }
+.ep-rota.rec h4::before {
+  content: ''; display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%;
+  background: var(--lavoura); margin-right: 0.45rem; vertical-align: 0.05rem;
+}
+.ep-rota .pay { font-size: 1.05rem; font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--lavoura); }
+
+/* barra de payback: comprimento ∝ anos (mais curta = melhor) */
+.ep-barra { position: relative; height: 12px; margin: 0.55rem 0 0.4rem; background: var(--nevoa); border-radius: 6px; overflow: hidden; }
+.ep-barra i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--lavoura); border-radius: 6px; min-width: 6px; }
+.ep-rota.rec .ep-barra i { background: var(--casca); }
+.ep-rota .meta { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; font-size: 0.86rem; color: var(--tinta-suave); }
+.ep-rota .meta .alerta { color: var(--barro); font-weight: 700; }
+
+.ep-eixo { display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--tinta-suave); margin-top: 0.3rem; font-variant-numeric: tabular-nums; }
+
+/* --------------------------------------------------------------------- mapa */
+#mapa { height: 420px; border-radius: 10px; border: 1px solid var(--nevoa); margin: 0.75rem 0; z-index: 1; }
+.ep-mapa-ctrl { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin: 0.5rem 0; }
+.ep-mapa-ctrl label { font-size: 0.85rem; font-weight: 700; color: var(--tinta-suave); }
+.ep-mapa-ctrl input[type="range"] { width: 12rem; min-height: auto; padding: 0; }
+.ep-mapa-ctrl output { font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* barra de escala do consórcio */
+.ep-escala { margin: 0.75rem 0; }
+.ep-escala .linha { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.9rem; }
+.ep-escala .linha b { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.ep-escala .trilho { position: relative; height: 16px; background: var(--nevoa); border-radius: 8px; margin: 0.4rem 0; overflow: hidden; }
+.ep-escala .trilho i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--lavoura); border-radius: 8px; transition: width 0.25s ease; }
+.ep-escala .trilho i.cheio { background: var(--casca); }
+.ep-escala .marca-meta { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--tinta); }
+.ep-escala .aviso { font-size: 0.92rem; margin: 0.3rem 0 0; }
+.ep-escala .aviso.ok { color: var(--lavoura); font-weight: 700; }
+
+.leaflet-popup-content { font-family: var(--fonte); font-size: 0.9rem; }
+.leaflet-popup-content b { color: var(--lavoura); }
+
+/* ------------------------------------------------------------- premissas */
+details.ep-premissas { border: 1px solid var(--nevoa); border-radius: 8px; background: var(--superficie); margin: 1rem 0; }
+details.ep-premissas > summary { padding: 0.75rem 0.9rem; font-weight: 700; cursor: pointer; list-style: none; }
+details.ep-premissas > summary::-webkit-details-marker { display: none; }
+details.ep-premissas > summary::before { content: '▸ '; color: var(--casca); }
+details.ep-premissas[open] > summary::before { content: '▾ '; }
+.ep-params { padding: 0 0.9rem 0.9rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1rem; }
+.ep-param { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.ep-param label { font-size: 0.82rem; font-weight: 700; color: var(--tinta); }
+.ep-param .faixa { font-size: 0.74rem; color: var(--tinta-suave); }
+.ep-param .fonte { font-size: 0.72rem; color: var(--tinta-suave); font-style: italic; }
+
+/* --------------------------------------------------------------------- notas */
+.ep-nota { font-size: 0.85rem; color: var(--tinta-suave); margin: 0.75rem 0; max-width: 42em; }
+.ep-legenda { font-size: 0.85rem; color: var(--tinta-suave); margin: 0.6rem 0 0; max-width: 42em; }
+.ep-criterios { border-collapse: collapse; width: 100%; margin: 0.75rem 0; font-size: 0.92rem; }
+.ep-criterios th, .ep-criterios td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--nevoa); }
+.ep-criterios th { color: var(--lavoura); }
+
+.ep-rodape { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--nevoa); font-size: 0.82rem; color: var(--tinta-suave); }
+
+/* --------------------------------------------------------------------- celular */
+@media (max-width: 640px) {
+  .ep-wrap { padding: 1rem 1rem 3rem; }
+  .ep-form, .ep-params { grid-template-columns: 1fr; }
+  #mapa { height: 340px; }
+  .ep-mapa-ctrl input[type="range"] { width: 100%; }
+  h2 { font-size: 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

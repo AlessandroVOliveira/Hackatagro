@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Energia da Porteira</title>
+  <meta name="description" content="Inventário de resíduos, simulador de payback e consórcio de vizinhos para transformar biomassa em energia ou renda.">
+
+  <!-- Leaflet (mapa do consórcio) via CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+        integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="">
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="ep-wrap">
+
+    <!-- ----------------------------------------------------------- cabeçalho -->
+    <header class="ep-marca">
+      <b>Energia da Porteira</b>
+      <span>O produtor já tem a matéria-prima. Aqui ele vê quanto ela vale por ano e junta os vizinhos até a conta fechar.</span>
+    </header>
+
+    <nav class="ep-nav" aria-label="Seções">
+      <a href="#inventario"><span class="n">1</span>Inventário</a>
+      <a href="#rotas"><span class="n">2</span>Rotas e payback</a>
+      <a href="#consorcio"><span class="n">3</span>Consórcio</a>
+    </nav>
+
+    <!-- ========================================================= 1. INVENTÁRIO -->
+    <section id="inventario">
+      <h2>1 · Quanto resíduo você gera</h2>
+      <p class="ep-intro">Responda 5 perguntas. Começa escolhendo um perfil parecido com o seu e ajuste os números.</p>
+
+      <div class="ep-perfis" role="group" aria-label="Perfis de produtor">
+        <button type="button" class="ep-perfil" data-perfil="orizicultor" aria-pressed="false">
+          <b>Orizicultor</b><small>300 ha de arroz, vende em casca</small>
+        </button>
+        <button type="button" class="ep-perfil" data-perfil="pecuarista" aria-pressed="false">
+          <b>Pecuarista</b><small>600 cabeças em confinamento</small>
+        </button>
+        <button type="button" class="ep-perfil" data-perfil="engenho" aria-pressed="false">
+          <b>Com engenho</b><small>300 ha + engenho próprio</small>
+        </button>
+      </div>
+
+      <form class="ep-form" id="form-inventario" autocomplete="off">
+        <div class="ep-campo">
+          <label for="area_arroz">Área de arroz (ha)</label>
+          <input type="number" id="area_arroz" min="0" max="50000" step="10" value="300" inputmode="numeric">
+        </div>
+        <div class="ep-campo">
+          <label for="produtividade">Produtividade (t/ha)</label>
+          <input type="number" id="produtividade" min="0" max="15" step="0.5" value="8.5" inputmode="decimal">
+        </div>
+        <div class="ep-campo">
+          <label for="cabecas">Cabeças de gado</label>
+          <input type="number" id="cabecas" min="0" max="100000" step="10" value="0" inputmode="numeric">
+        </div>
+        <div class="ep-campo">
+          <label for="manejo">Manejo do gado</label>
+          <select id="manejo">
+            <option value="extensivo">Extensivo (pasto aberto)</option>
+            <option value="semiconfinado">Mangueira / semiconfinamento</option>
+            <option value="confinamento">Confinamento ou leite</option>
+          </select>
+        </div>
+        <div class="ep-campo">
+          <label for="engenho">Beneficia o arroz em engenho próprio?</label>
+          <select id="engenho">
+            <option value="nao">Não — vende em casca</option>
+            <option value="sim">Sim — tenho engenho</option>
+          </select>
+          <span class="dica">Só quem tem engenho fica com a casca (≈20% do peso do grão).</span>
+        </div>
+      </form>
+
+      <!-- resultado -->
+      <div class="ep-ficha" aria-live="polite">
+        <p class="rotulo">Seus resíduos podem render, por ano, até</p>
+        <div class="ep-numerao" id="ficha-valor">R$ 0</div>
+        <p class="frase" id="ficha-frase"></p>
+      </div>
+
+      <div class="ep-volumes" id="volumes"></div>
+
+      <div class="ep-teto" id="teto"></div>
+
+      <details class="ep-premissas">
+        <summary>Coeficientes técnicos (faixas e fontes — edite para o seu caso)</summary>
+        <div class="ep-params" id="premissas-tecnicas"></div>
+        <p class="ep-nota" style="padding:0 0.9rem 0.9rem;margin:0;">
+          Valores de referência da literatura (Embrapa, IRGA). Mostramos a faixa mín/méd/máx; o cálculo
+          usa o valor do campo. A validar com IRGA/Emater.
+        </p>
+      </details>
+    </section>
+
+    <!-- ============================================================= 2. ROTAS -->
+    <section id="rotas-sec">
+      <h2 id="rotas">2 · O que fazer com o resíduo</h2>
+      <p class="ep-intro">Cada rota mostra o investimento, quanto rende por ano e em quanto tempo se paga.
+        Ordenadas da que se paga mais rápido para a mais lenta.</p>
+
+      <div class="ep-rotas" id="rotas"></div>
+      <div class="ep-eixo" id="rotas-eixo" aria-hidden="true"></div>
+      <p class="ep-legenda">A barra mostra o <b>payback</b> (tempo para o investimento se pagar): quanto mais
+        curta, melhor. O ponto verde marca a rota recomendada. Economia e receita já descontam o custo de operação.</p>
+
+      <details class="ep-premissas">
+        <summary>Preços, custos e investimentos (a validar na região)</summary>
+        <div class="ep-params" id="premissas-economicas"></div>
+        <p class="ep-nota" style="padding:0 0.9rem 0.9rem;margin:0;">
+          Preços de resíduo, tarifas e investimentos variam muito. São referências para a demonstração —
+          confirme com compradores, Emater e fornecedores de equipamento.
+        </p>
+      </details>
+    </section>
+
+    <!-- ========================================================= 3. CONSÓRCIO -->
+    <section id="consorcio">
+      <h2>3 · Consórcio de vizinhos</h2>
+      <p class="ep-intro">Se nenhuma rota fecha sozinha, some o resíduo dos vizinhos. O mapa mostra as
+        propriedades de Alegrete que declararam resíduo e soma o volume dentro do raio escolhido ao redor
+        da sua (ponto dourado).</p>
+
+      <div class="ep-mapa-ctrl">
+        <label for="raio">Raio do consórcio</label>
+        <input type="range" id="raio" min="5" max="60" step="5" value="20">
+        <output id="raio-val">20 km</output>
+      </div>
+
+      <div id="mapa"></div>
+
+      <div class="ep-escala" id="escala"></div>
+
+      <p class="ep-nota">
+        A camada coletiva conversa com a <b>geração distribuída compartilhada (Lei 14.300/2022)</b>: um
+        consórcio ou cooperativa gera energia numa usina e usa os créditos nas contas das unidades dos
+        membros — inclusive as bombas de irrigação. Propriedades no mapa são fictícias, só para demonstração.
+      </p>
+    </section>
+
+    <!-- =========================================================== rodapé/critérios -->
+    <section>
+      <h2>Como o protótipo atende o desafio</h2>
+      <table class="ep-criterios">
+        <thead><tr><th>Critério</th><th>Como atendemos</th></tr></thead>
+        <tbody>
+          <tr><td>Reduzir custo de energia ou gerar renda</td><td>Cada rota mostra a economia ou a receita em R$/ano.</td></tr>
+          <tr><td>Funcionar em pequena escala</td><td>Rotas individuais (venda, briquete, secagem, biodigestor) e rota coletiva pelo consórcio.</td></tr>
+          <tr><td>Modelo econômico com payback</td><td>Payback por rota e por perfil, com premissas visíveis e editáveis.</td></tr>
+          <tr><td>Viável na realidade regional</td><td>Página leve, abre no celular, preenchível em minutos por um técnico em visita.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="ep-rodape">
+      HackatAgro × Sebrae RS · Alegrete/RS · Desafio 1 · Bioeconomia &amp; Energia · protótipo do MVP.
+      Coeficientes e preços são referências a validar com IRGA, Emater e compradores da região.
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+          integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin=""></script>
+
+  <!-- Scripts carregados em ordem: utilitários -> dados -> camadas -> orquestração -->
+  <script src="assets/js/formato.js"></script>
+  <script src="assets/js/dados.js"></script>
+  <script src="assets/js/inventario.js"></script>
+  <script src="assets/js/rotas.js"></script>
+  <script src="assets/js/consorcio.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
