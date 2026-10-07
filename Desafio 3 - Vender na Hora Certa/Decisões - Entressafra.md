@@ -37,7 +37,7 @@ preço.**
 |---|---|
 | O que o público faz hoje com dificuldade? | Vende tudo na colheita, no pior preço, para pagar as contas, sem saber quanto perde nem se vale esperar. |
 | O que deveria conseguir fazer melhor? | **Decidir quando e como vender** com base em números: quanto perde vendendo agora, quanto custa esperar e como pagar as contas enquanto espera. |
-| Qual barreira precisa ser removida? | A falta de um número claro do **custo da pressa** e o desconhecimento do crédito de estocagem (EGF, CPR, CDA/WA). |
+| Qual barreira precisa ser removida? | A falta de um número claro do **custo da pressa** e o desconhecimento do crédito de estocagem (FEE/EGF, CPR, CDA/WA). |
 | Qual resultado percebido mostraria melhora? | **Receita / custo** — R$ por saca ganho (ou deixado na mesa) ao escolher a janela de venda. |
 | Qual condição mínima a solução precisa respeitar? | Usar **dados reais** (CEPEA/Banco Central), funcionar no celular e sem internet, responder em minutos e ter premissas editáveis. |
 
@@ -59,7 +59,7 @@ preço.**
 |---|---|---|
 | 1 | O produtor informa a safra (área, produtividade, preço de colheita e contas que vencem). | Vê **quanto perde** vendendo tudo agora, em R$ por saca e na safra inteira. |
 | 2 | Compara os cenários (vender na colheita, armazenar, financiar a estocagem, venda escalonada) com pior/mediana/melhor ano do histórico. | Vê **quanto custa esperar** e em que mês costuma compensar. |
-| 3 | Abre as opções de crédito (EGF, CPR, CDA/WA, custo do adiantamento). | Vê **como pagar as contas** enquanto espera, e decide. |
+| 3 | Abre as opções de crédito (FEE/EGF, CPR, CDA/WA, custo do adiantamento). | Vê **como pagar as contas** enquanto espera, e decide. |
 
 ---
 

@@ -320,9 +320,9 @@ with aba_caixa:
     with col_result:
         st.subheader("Como atravessar o aperto de caixa")
         ui.instrumentos([
-            ("EGF (Plano Safra)",
-             "Financiamento de estocagem. O produto fica guardado como garantia e o "
-             "dinheiro paga as contas da colheita."),
+            ("FEE, o \"EGF\" (Plano Safra)",
+             "Financiamento Especial para Estocagem: até 180 dias para o arroz, com o produto "
+             "em penhor como garantia. O dinheiro paga as contas da colheita."),
             ("CDA/WA",
              "Títulos emitidos por armazém certificado. Você guarda o arroz e usa o "
              "warrant como garantia para conseguir crédito no banco."),

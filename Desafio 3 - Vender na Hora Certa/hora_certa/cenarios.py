@@ -122,7 +122,7 @@ def cenarios_arroz(p: ParametrosArroz, fatores: pd.DataFrame) -> list[Cenario]:
     financiar = Cenario(
         nome="Financiar a estocagem",
         descricao="Toda a safra fica armazenada; um financiamento de "
-        "estocagem (EGF, CDA/WA) paga as contas da colheita.",
+        "estocagem (FEE/EGF, CDA/WA) paga as contas da colheita.",
         liquido_saca=_liquido_guardado(p, fatores[k], k, financiado / p.sacas),
         caixa_colheita=financiado,
         vendas=[(k, 1.0)],
