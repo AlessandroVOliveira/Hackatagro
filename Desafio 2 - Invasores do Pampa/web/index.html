@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#34502A">
+<title>Ronda do Pampa</title>
+<meta name="description" content="Vigilância de vizinhança contra o capim-annoni e o javali.">
+<link rel="manifest" href="/web/manifest.webmanifest">
+<link rel="icon" href="/web/icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/web/icone.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/web/estilo.css">
+</head>
+<body>
+<header class="topo">
+  <a href="#mapa" class="marca">Ronda do Pampa</a>
+  <label class="perfil"><span class="sr">Você está como</span><select id="perfil"></select></label>
+  <span id="sinal" class="sinal" role="status" aria-live="polite"></span>
+</header>
+<nav class="nav" aria-label="Seções">
+  <a href="#mapa" data-rota="mapa">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 5l6-2 6 2 6-2v16l-6 2-6-2-6 2z"/><path d="M9 3v16M15 5v16"/></svg>
+    <span>Mapa</span>
+  </a>
+  <a href="#registrar" data-rota="registrar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><path d="M12 7v5M9.5 9.5h5"/></svg>
+    <span>Registrar <span id="nav-fila"></span></span>
+  </a>
+  <a href="#prioridades" data-rota="prioridades">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M4 12h7M4 18h4"/><path d="M17 4v16M14 17l3 3 3-3"/></svg>
+    <span>Prioridades</span>
+  </a>
+  <a href="#javali" data-rota="javali">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c0-4 3.5-7 8-7s8 3 8 7-3 6-8 6-8-2-8-6z"/><path d="M6 8L4 4M18 8l2-4M9.5 15.5h5M10 12h.01M14 12h.01"/></svg>
+    <span>Javali</span>
+  </a>
+  <a href="#avisos" data-rota="avisos">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+    <span>Avisos <span id="nav-avisos"></span></span>
+  </a>
+</nav>
+<main id="tela" tabindex="-1"></main>
+<input type="file" id="arquivo" accept="image/*" capture="environment" hidden>
+<script type="module" src="/web/app.js"></script>
+</body>
+</html>

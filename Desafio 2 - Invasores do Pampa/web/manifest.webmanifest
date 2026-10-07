@@ -1,0 +1,14 @@
+{
+  "name": "Ronda do Pampa",
+  "short_name": "Ronda",
+  "description": "Vigilância de vizinhança contra o capim-annoni e o javali.",
+  "start_url": "/#registrar",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F4F2EA",
+  "theme_color": "#34502A",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "/web/icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

@@ -1,14 +1,15 @@
 # HackatAgro × Sebrae RS · Alegrete/RS
 
-Repositório da equipe para o HackatAgro. Aqui ficam as propostas e os protótipos dos três desafios que estamos trabalhando. Cada desafio tem sua própria pasta, com a proposta em PDF e, quando houver, o código.
+Repositório da equipe para o HackatAgro. Aqui ficam as propostas e os protótipos dos quatro desafios. Cada desafio tem sua própria pasta, com a proposta em PDF e, quando houver, o código.
 
 | Desafio | Proposta | Status |
 |---|---|---|
-| 1 · Bioeconomia & Energia | [Energia da Porteira](#desafio-1--energia-da-porteira) | Proposta |
+| 1 · Bioeconomia & Energia | [Energia da Porteira](#desafio-1--energia-da-porteira) | **Protótipo** |
+| 2 · Invasores do Pampa | [Ronda do Pampa](#desafio-2--ronda-do-pampa) | **Protótipo e pitch** |
 | 3 · Novas Cadeias | [Entressafra](#desafio-3--entressafra) | **Protótipo e pitch** |
 | 4 · IA no Campo · Conectividade | [Conta do Talhão](#desafio-4--conta-do-talhão) | **Protótipo e pitch** |
 
-Os desafios 3 e 4 têm protótipo funcionando e pitch em PDF.
+Os quatro desafios têm protótipo. Os desafios 2, 3 e 4 também têm pitch em PDF.
 
 ---
 
@@ -25,9 +26,29 @@ Os desafios 3 e 4 têm protótipo funcionando e pitch em PDF.
 2. **Simulador de rotas:** compara venda do resíduo, briquete/pellet, biodigestor e queima para secagem própria, com investimento e payback de cada rota.
 3. **Consórcio de vizinhos:** mapa que soma o volume num raio e avisa quando o grupo atinge a escala mínima. Pode usar a geração distribuída compartilhada (Lei 14.300/2022).
 
-**MVP:** calculadora web, gráfico de payback por perfil e mapa do consórcio (HTML/JS ou Streamlit + Leaflet).
+**Protótipo:** calculadora web de página única (HTML/JS, sem backend) com inventário, rotas com payback e consórcio de vizinhos em mapa Leaflet. Instruções em [`Desafio 1 - Energia da Porteira/`](<Desafio 1 - Energia da Porteira/README.md>).
 
 📄 [Proposta completa](<Desafio 1 - Energia da Porteira/Proposta - Energia da Porteira.pdf>)
+
+---
+
+## Desafio 2 · Ronda do Pampa
+
+> Vigilância de vizinhança contra o capim-annoni e o javali: ver cedo, gastar primeiro onde rende mais e agir junto com os vizinhos.
+
+**Pergunta:** como ajudar o pecuarista a descobrir cedo, medir e controlar, junto com os vizinhos, o avanço do capim-annoni e do javali?
+
+**Problema:** o annoni já ocupa cerca de 20% dos campos gaúchos, solta até 80 mil sementes por planta por ano e a semente dura mais de 20 anos no solo. Uma estância de Livramento perdeu 6.255 ovinos para o javali (R$ 3,1 milhões). A invasão é vista tarde, o controle é feito sem estratégia e cada produtor age sozinho.
+
+**Solução:**
+1. **Registro na ronda:** foto e GPS de annoni ou javali, mesmo sem sinal.
+2. **Onde gastar primeiro:** nota de prioridade (focos pequenos, isolados, perto de vetores e de campo limpo vêm antes) e plano da semana com custo.
+3. **Vizinhança:** avisos num raio de 3 km sem expor de quem é a terra, armadilha coletiva com sensor e rodízio, controladores cadastrados no Ibama.
+4. **Prevenção:** quarentena do gado, limpeza de máquinas e revisita dos focos eliminados.
+
+**Protótipo:** app web que funciona sem sinal, mapa da vizinhança desenhado no app, FastAPI + SQLite, avisos no WhatsApp pela Evolution API e sensor ESP32 da armadilha. Instruções em [`Desafio 2 - Invasores do Pampa/`](<Desafio 2 - Invasores do Pampa/README.md>). Pitch: [Pitch - Ronda do Pampa.pdf](<Desafio 2 - Invasores do Pampa/Pitch - Ronda do Pampa.pdf>).
+
+📄 [Proposta completa](<Desafio 2 - Invasores do Pampa/Proposta - Ronda do Pampa.pdf>)
 
 ---
 
@@ -68,4 +89,4 @@ Os desafios 3 e 4 têm protótipo funcionando e pitch em PDF.
 
 ## Como os desafios se conectam
 
-O **Conta do Talhão** (4) calcula o custo real por saca de cada área, e esse custo pode alimentar o **Entressafra** (3) no lugar da média de R$ 15 mil/ha. Já o **Energia da Porteira** (1) ataca o maior item de custo variável da lavoura irrigada, que o Conta do Talhão ajuda a medir.
+O **Conta do Talhão** (4) calcula o custo real por saca de cada área, e esse custo pode alimentar o **Entressafra** (3) no lugar da média de R$ 15 mil/ha. Já o **Energia da Porteira** (1) ataca o maior item de custo variável da lavoura irrigada, que o Conta do Talhão ajuda a medir. O **Ronda do Pampa** (2) e o **Energia da Porteira** partem da mesma ideia, o vizinho como parte da solução, e o Ronda reaproveita do Conta do Talhão o app que funciona sem sinal e o canal de WhatsApp.
