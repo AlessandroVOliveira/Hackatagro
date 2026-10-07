@@ -1,0 +1,40 @@
+# Evolution API (WhatsApp) para o Conta do Talhão.
+# Subir: docker compose up -d   (rodar dentro desta pasta, com o .env criado pelo configurar.py)
+services:
+  evolution:
+    image: evoapicloud/evolution-api:v2.3.7
+    container_name: conta_talhao_evolution
+    restart: unless-stopped
+    depends_on: [postgres, redis]
+    ports:
+      - "127.0.0.1:8080:8080"
+    env_file: .env
+    volumes:
+      - evolution_instances:/evolution/instances
+    extra_hosts:
+      # para a Evolution chamar o webhook do Conta do Talhão rodando na máquina
+      - "host.docker.internal:host-gateway"
+
+  postgres:
+    image: postgres:15
+    container_name: conta_talhao_evolution_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: evolution
+      POSTGRES_USER: evolution
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: conta_talhao_evolution_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+volumes:
+  evolution_instances:
+  postgres_data:
+  redis_data:
