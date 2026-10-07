@@ -5,7 +5,7 @@ Repositório da equipe para o HackatAgro. Aqui ficam as propostas e os protótip
 | Desafio | Proposta | Status |
 |---|---|---|
 | 1 · Bioeconomia & Energia | [Energia da Porteira](#desafio-1--energia-da-porteira) | Proposta |
-| 3 · Novas Cadeias | [Hora Certa](#desafio-3--hora-certa) | **Protótipo em desenvolvimento** |
+| 3 · Novas Cadeias | [Entressafra](#desafio-3--entressafra) | **Protótipo em desenvolvimento** |
 | 4 · IA no Campo · Conectividade | [Conta do Talhão](#desafio-4--conta-do-talhão) | Proposta |
 
 Começamos pelo Desafio 3.
@@ -31,7 +31,7 @@ Começamos pelo Desafio 3.
 
 ---
 
-## Desafio 3 · Hora Certa
+## Desafio 3 · Entressafra
 
 > Simulador de comercialização que mostra, em R$ por saca e por cabeça, o custo de vender por falta de caixa.
 
@@ -68,4 +68,4 @@ Começamos pelo Desafio 3.
 
 ## Como os desafios se conectam
 
-O **Conta do Talhão** (4) calcula o custo real por saca de cada área, e esse custo pode alimentar o **Hora Certa** (3) no lugar da média de R$ 15 mil/ha. Já o **Energia da Porteira** (1) ataca o maior item de custo variável da lavoura irrigada, que o Conta do Talhão ajuda a medir.
+O **Conta do Talhão** (4) calcula o custo real por saca de cada área, e esse custo pode alimentar o **Entressafra** (3) no lugar da média de R$ 15 mil/ha. Já o **Energia da Porteira** (1) ataca o maior item de custo variável da lavoura irrigada, que o Conta do Talhão ajuda a medir.

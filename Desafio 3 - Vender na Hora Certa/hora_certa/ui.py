@@ -1,4 +1,4 @@
-"""Camada visual do Hora Certa: estilos e componentes HTML para o Streamlit.
+"""Camada visual do Entressafra: estilos e componentes HTML para o Streamlit.
 
 Paleta tirada da lavoura de arroz na colheita: verde da lavoura para ganho,
 barro vermelho da campanha para perda, dourado da casca só para o preço.
@@ -246,7 +246,7 @@ def cabecalho(ano: int, preco_colheita: float, preco_hoje: float, data_hoje: str
     _html(
         f"""
         <header class="hc-topo">
-        <div class="hc-marca"><b>Hora Certa</b>
+        <div class="hc-marca"><b>Entressafra</b>
         <span>Quanto custa vender na pressa, e como esperar sem atrasar as contas.</span></div>
         <section class="hc-safra" aria-label="Preço do arroz na safra {ano}">
         <p>Arroz em casca no RS, safra {ano}</p>

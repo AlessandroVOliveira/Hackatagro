@@ -1,4 +1,4 @@
-"""Hora Certa: simulador de comercialização de arroz e gado.
+"""Entressafra: simulador de comercialização de arroz e gado.
 
 Rodar: streamlit run app.py
 """
@@ -14,7 +14,7 @@ from hora_certa import sazonalidade as saz
 from hora_certa import ui
 from hora_certa.ui import brl, brl_sinal, pct
 
-st.set_page_config(page_title="Hora Certa", page_icon="🌾", layout="wide")
+st.set_page_config(page_title="Entressafra", page_icon="🌾", layout="wide")
 ui.aplicar_estilo()
 
 # Proporção entre a coluna de campos e a de resultados em telas largas.
