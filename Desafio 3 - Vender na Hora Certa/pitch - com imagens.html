@@ -47,15 +47,13 @@
   table.tab td:first-child{ font-weight:700; width:14%; }
   table.tab b{ color:var(--lavoura); }
 
-  /* capa verde (sem foto) */
-  .capa{ background:linear-gradient(135deg, var(--lavoura) 0%, var(--lavoura2) 100%); padding:0; }
-  .capa .in{ position:relative; z-index:2; color:#fff; height:100%; display:flex; flex-direction:column; justify-content:center; padding:0 24mm; }
+  /* capa: foto de Entressafra (arroz, gado, colheita) */
+  .capa{ background:var(--lavoura2); padding:0; }
+  .capa .topo{ padding:9mm 18mm 0; }
   .capa .kicker{ color:var(--casca-claro); }
-  .capa h1{ font-size:70pt; font-weight:900; letter-spacing:-.03em; line-height:1; margin:5mm 0 7mm; }
-  .capa h1 .pt{ color:var(--casca); }
-  .capa .sub{ font-size:17pt; color:rgba(255,255,255,.9); max-width:205mm; line-height:1.5; }
-  .capa .meta{ position:absolute; z-index:2; left:24mm; right:24mm; bottom:14mm; color:rgba(255,255,255,.8);
-    font-size:12pt; border-top:1px solid rgba(255,255,255,.25); padding-top:4mm; }
+  .capa .foto{ display:block; width:100%; margin-top:6mm; }
+  .capa .meta{ margin-top:auto; padding:5mm 18mm; color:rgba(255,255,255,.8);
+    font-size:12pt; border-top:1px solid rgba(255,255,255,.25); }
 
   .frase-slide{ justify-content:center; }
   .frase{ font-size:38pt; font-weight:800; line-height:1.22; letter-spacing:-.015em; color:var(--lavoura); max-width:250mm; }
@@ -93,12 +91,8 @@
 
 <!-- 1. CAPA -->
 <section class="slide capa">
-  <div class="in">
-    <p class="kicker">Desafio 3 · Novas Cadeias</p>
-    <h1>Entre<span class="pt">safra</span></h1>
-    <p class="sub">Quanto custa vender na pressa, e como esperar sem atrasar as contas. Um simulador que
-      mostra, em R$ por saca, o preço da falta de caixa na colheita.</p>
-  </div>
+  <div class="topo"><p class="kicker">Desafio 3 · Novas Cadeias</p></div>
+  <img class="foto" src="assets/capa-entressafra.jpg" alt="Entressafra — arroz, gado e colheita no Rio Grande do Sul">
   <div class="meta">HackatAgro × Sebrae RS · Alegrete/RS</div>
 </section>
 
