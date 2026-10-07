@@ -79,10 +79,11 @@ def _guardar(con, jid: str, estado: dict | None) -> None:
 
 # ------------------------------------------------------------------ formatação
 
-def _rs(v: float | None) -> str:
+def _rs(v: float | None, casas: int = 2) -> str:
     if v is None:
         return "?"
-    return "R$ " + f"{v:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    s = f"{abs(v):,.{casas}f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    return ("-" if v < 0 else "") + "R$ " + s
 
 
 def _sem_acento(s: str) -> str:
@@ -133,7 +134,11 @@ def _proximo_passo(con, jid: str, estado: dict) -> str:
         estado["item_valor"] = faltando[0]
         _guardar(con, jid, estado)
         it = itens[faltando[0]]
-        return f"Qual foi o valor total de *{it['descricao'] or _nome_categoria(it['categoria'])}*, em reais?"
+        o_que = _nome_categoria(it["categoria"])
+        if it.get("quantidade"):
+            o_que = f"{it['quantidade']:g} {it.get('unidade') or ''} de {o_que}".replace("  ", " ")
+        onde = f" em *{_rotulo_alvo(con, estado['alvo'])}*" if estado.get("alvo") else ""
+        return f"Entendi: {o_que}{onde}. Qual foi o valor total, em reais?"
 
     if not estado.get("alvo"):
         receita = any(it["categoria"] in motor.CATEGORIAS_RECEITA for it in itens)
@@ -173,7 +178,7 @@ def _salvar(con, jid: str, estado: dict) -> str:
     if alvo["alvo_tipo"] == "talhao":
         p = motor.painel(db.talhoes(con), db.bombas(con), db.lotes(con), db.lancamentos(con))
         t = next(x for x in p["talhoes"] if x["id"] == alvo["alvo_id"])
-        msg += f"\nCusto do talhão até agora: {_rs(t['custo_ha'])}/ha."
+        msg += f"\nCusto do talhão até agora: {_rs(t['custo_ha'], 0)}/ha."
         alerta = next((a for a in p["alertas"] if a["talhao_id"] == t["id"] and a["tipo"] != "margem"), None)
         if alerta:
             msg += f"\n⚠️ {alerta['texto']}"
@@ -184,8 +189,8 @@ def _resumo(con) -> str:
     p = motor.painel(db.talhoes(con), db.bombas(con), db.lotes(con), db.lancamentos(con))
     linhas = ["*Custo e margem por talhão*"]
     for t in p["talhoes"]:
-        margem = f", margem {_rs(t['margem_ha'])}/ha" if t["receita"] else ""
-        linhas.append(f"• {t['nome']}: {_rs(t['custo_ha'])}/ha{margem}")
+        margem = f", margem {_rs(t['margem_ha'], 0)}/ha" if t["receita"] else ""
+        linhas.append(f"• {t['nome']}: {_rs(t['custo_ha'], 0)}/ha{margem}")
     for a in p["alertas"][:2]:
         linhas.append(f"⚠️ {a['texto']}")
     return "\n".join(linhas)

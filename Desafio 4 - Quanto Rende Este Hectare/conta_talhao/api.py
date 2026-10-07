@@ -5,6 +5,7 @@ Rodar: uvicorn conta_talhao.api:app --host 0.0.0.0 --port 8600
 
 from __future__ import annotations
 
+import threading
 import uuid
 from datetime import date
 from pathlib import Path
@@ -22,12 +23,22 @@ TIPOS_IMAGEM = {"image/jpeg", "image/png", "image/webp", "image/gif"}
 LIMITE_IMAGEM = 8 * 1024 * 1024
 
 app = FastAPI(title="Conta do Talhão")
-con = db.conectar()
-db.semear(con)
+_local = threading.local()
+
+
+def conexao():
+    """Uma conexão SQLite por thread: o FastAPI atende pedidos em paralelo."""
+    c = getattr(_local, "con", None)
+    if c is None:
+        c = _local.con = db.conectar()
+    return c
+
+
+db.semear(conexao())
 
 
 def _cadastro():
-    return db.talhoes(con), db.lotes(con), db.bombas(con)
+    return db.talhoes(conexao()), db.lotes(conexao()), db.bombas(conexao())
 
 
 @app.get("/api/fazenda")
@@ -113,7 +124,7 @@ def salvar(itens: list[NovoLancamento]):
             alvo_id = it.alvo_id
         if it.alvo_tipo == "bomba" and it.categoria != "energia":
             raise HTTPException(422, "Na bomba só entra conta de luz (energia).")
-        registro, novo = db.inserir_lancamento(con, {**it.model_dump(), "data": it.data.isoformat(),
+        registro, novo = db.inserir_lancamento(conexao(), {**it.model_dump(), "data": it.data.isoformat(),
                                                      "tipo": tipo, "alvo_id": alvo_id})
         gravados.append({**registro, "novo": novo})
     return gravados
@@ -121,12 +132,12 @@ def salvar(itens: list[NovoLancamento]):
 
 @app.get("/api/lancamentos")
 def listar(alvo_tipo: str | None = None, alvo_id: int | None = None, limite: int | None = 50):
-    return db.lancamentos(con, alvo_tipo, alvo_id, limite)
+    return db.lancamentos(conexao(), alvo_tipo, alvo_id, limite)
 
 
 @app.delete("/api/lancamentos/{lanc_id}")
 def apagar(lanc_id: int):
-    if not db.apagar_lancamento(con, lanc_id):
+    if not db.apagar_lancamento(conexao(), lanc_id):
         raise HTTPException(404, "Lançamento não encontrado.")
     return {"ok": True}
 
@@ -134,20 +145,20 @@ def apagar(lanc_id: int):
 @app.get("/api/painel")
 def painel():
     t, lt, b = _cadastro()
-    return motor.painel(t, b, lt, db.lancamentos(con))
+    return motor.painel(t, b, lt, db.lancamentos(conexao()))
 
 
 @app.get("/api/relatorio.pdf")
 def relatorio_pdf():
     t, lt, b = _cadastro()
-    pdf = relatorio.gerar(motor.painel(t, b, lt, db.lancamentos(con)))
+    pdf = relatorio.gerar(motor.painel(t, b, lt, db.lancamentos(conexao())))
     return Response(pdf, media_type="application/pdf",
                     headers={"Content-Disposition": 'attachment; filename="custo-por-talhao.pdf"'})
 
 
 def _responder_whatsapp(corpo: dict) -> None:
     try:
-        r = whatsapp.tratar_webhook(con, corpo)
+        r = whatsapp.tratar_webhook(conexao(), corpo)
         if r:
             whatsapp.enviar(*r)
     except Exception as e:  # o webhook nunca deve derrubar o servidor

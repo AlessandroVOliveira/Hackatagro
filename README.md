@@ -5,10 +5,10 @@ Repositório da equipe para o HackatAgro. Aqui ficam as propostas e os protótip
 | Desafio | Proposta | Status |
 |---|---|---|
 | 1 · Bioeconomia & Energia | [Energia da Porteira](#desafio-1--energia-da-porteira) | Proposta |
-| 3 · Novas Cadeias | [Entressafra](#desafio-3--entressafra) | **Protótipo em desenvolvimento** |
-| 4 · IA no Campo · Conectividade | [Conta do Talhão](#desafio-4--conta-do-talhão) | Proposta |
+| 3 · Novas Cadeias | [Entressafra](#desafio-3--entressafra) | **Protótipo e pitch** |
+| 4 · IA no Campo · Conectividade | [Conta do Talhão](#desafio-4--conta-do-talhão) | **Protótipo e pitch** |
 
-Começamos pelo Desafio 3.
+Os desafios 3 e 4 têm protótipo funcionando e pitch em PDF.
 
 ---
 
@@ -60,7 +60,7 @@ Começamos pelo Desafio 3.
 
 **Solução:** o produtor manda foto da nota fiscal, áudio ("passei 200 kg de ureia no talhão 3"), conta de luz da bomba ou romaneio, e a IA transforma tudo em lançamentos de custo por talhão. Funciona offline (PWA) ou por Telegram. Gera painel por talhão, alertas ("o talhão 7 gastou 40% mais energia que a média") e relatório para o banco.
 
-**MVP:** PWA/Telegram, extração com IA multimodal, FastAPI + SQLite, painel web.
+**Protótipo:** app web que funciona sem sinal, WhatsApp pela Evolution API, leitura de notas com Claude, FastAPI + SQLite, mapa da propriedade e relatório PDF. Instruções em [`Desafio 4 - Quanto Rende Este Hectare/`](<Desafio 4 - Quanto Rende Este Hectare/README.md>). Pitch: [Pitch - Conta do Talhão.pdf](<Desafio 4 - Quanto Rende Este Hectare/Pitch - Conta do Talhão.pdf>).
 
 📄 [Proposta completa](<Desafio 4 - Quanto Rende Este Hectare/Proposta - Conta do Talhao.pdf>)
 

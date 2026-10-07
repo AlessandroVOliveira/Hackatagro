@@ -54,7 +54,7 @@ def test_frase_completa_pede_confirmacao_e_salva(con):
 
 def test_sem_valor_e_sem_talhao_pergunta_os_dois(con):
     r = falar(con, "comprei 500 litros de diesel")
-    assert "valor total" in r
+    assert "Qual foi o valor total" in r and "combustível" in r
     r = falar(con, "3.200,00", "ABC2")
     assert "Responda o número" in r and "Geral da lavoura" in r
     geral_antes = len(db.lancamentos(con, "geral"))

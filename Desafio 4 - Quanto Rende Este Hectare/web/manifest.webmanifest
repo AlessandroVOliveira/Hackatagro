@@ -1,0 +1,14 @@
+{
+  "name": "Conta do Talhão",
+  "short_name": "Talhão",
+  "description": "Custo e resultado de cada talhão e lote, registrados com uma foto ou uma frase.",
+  "start_url": "/#registrar",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F3F5F4",
+  "theme_color": "#1F5F6B",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "/web/icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F5F6B">
+<title>Conta do Talhão</title>
+<meta name="description" content="Custo e resultado de cada talhão e lote, registrados com uma foto ou uma frase.">
+<link rel="manifest" href="/web/manifest.webmanifest">
+<link rel="icon" href="/web/icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/web/icone.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/web/estilo.css">
+</head>
+<body>
+<header class="topo">
+  <a href="#painel" class="marca">Conta do Talhão</a>
+  <span id="sinal" class="sinal" role="status" aria-live="polite"></span>
+</header>
+<nav class="nav" aria-label="Seções">
+  <a href="#registrar" data-rota="registrar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+    <span>Registrar <span id="nav-fila"></span></span>
+  </a>
+  <a href="#painel" data-rota="painel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 5l6-2 6 2 6-2v16l-6 2-6-2-6 2z"/><path d="M9 3v16M15 5v16"/></svg>
+    <span>Talhões</span>
+  </a>
+  <a href="#gado" data-rota="gado">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9c0-2 1-4 3-4h8c2 0 3 2 3 4v4c0 3-2 6-7 6s-7-3-7-6z"/><path d="M3 6l2 3M21 6l-2 3M10 14h.01M14 14h.01"/></svg>
+    <span>Gado</span>
+  </a>
+</nav>
+<main id="tela" tabindex="-1"></main>
+<input type="file" id="arquivo" accept="image/*" capture="environment" hidden>
+<script type="module" src="/web/app.js"></script>
+</body>
+</html>

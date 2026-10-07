@@ -45,6 +45,9 @@ def conectar(arquivo: Path | str = ARQUIVO) -> sqlite3.Connection:
     Path(arquivo).parent.mkdir(parents=True, exist_ok=True)
     con = sqlite3.connect(arquivo, check_same_thread=False)
     con.row_factory = sqlite3.Row
+    if str(arquivo) != ":memory:":
+        con.execute("PRAGMA journal_mode=WAL")  # leituras e escritas de threads diferentes sem travar
+    con.execute("PRAGMA busy_timeout=5000")
     con.executescript(ESQUEMA)
     return con
 
