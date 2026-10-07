@@ -226,6 +226,27 @@ class ParametrosGado:
     custo_cabeca_mes: float  # sal, suplemento, sanidade, arrendamento
     cdi_aa: float
     rendimento_carcaca: float = 0.50
+    contas_vencem: float = 0.0  # R$ que precisam ser pagos agora, do lote
+
+    @property
+    def valor_cabeca_hoje(self) -> float:
+        return arrobas(self.peso_kg, self.rendimento_carcaca) * self.preco_arroba
+
+    @property
+    def valor_lote_hoje(self) -> float:
+        return self.valor_cabeca_hoje * self.cabecas
+
+    @property
+    def fracao_para_contas(self) -> float:
+        """Fração do lote que precisa ser vendida agora para pagar as contas."""
+        if self.valor_lote_hoje <= 0:
+            return 0.0
+        return min(1.0, self.contas_vencem / self.valor_lote_hoje)
+
+    @property
+    def cabecas_para_contas(self) -> int:
+        """Nº de cabeças (arredondado para cima) que cobre as contas."""
+        return math.ceil(self.fracao_para_contas * self.cabecas) if self.contas_vencem > 0 else 0
 
 
 def arrobas(peso_kg: float, rendimento: float) -> float:
@@ -233,21 +254,25 @@ def arrobas(peso_kg: float, rendimento: float) -> float:
 
 
 def segurar_gado(p: ParametrosGado, fatores: pd.DataFrame) -> pd.DataFrame:
-    """Resultado por cabeça de segurar o gado `meses` meses, ano a ano.
+    """Resultado médio por cabeça de segurar o gado `meses` meses, ano a ano.
 
-    fatores: saída de fatores_por_ano para o boi com meses_ref=(mês atual,).
+    Se `contas_vencem` > 0, a fração necessária do lote é vendida agora (ganho
+    zero, por definição) para pagar as contas, e só o resto é segurado — o
+    mesmo raciocínio da venda escalonada do arroz. `fatores` é a saída de
+    fatores_por_ano para o boi com meses_ref=(mês atual,).
     """
-    valor_hoje = arrobas(p.peso_kg, p.rendimento_carcaca) * p.preco_arroba
+    valor_hoje = p.valor_cabeca_hoje
     peso_futuro = p.peso_kg + p.ganho_kg_dia * DIAS_MES * p.meses
     preco_futuro = p.preco_arroba * fatores[p.meses]
     valor_futuro = arrobas(peso_futuro, p.rendimento_carcaca) * preco_futuro
     custo = p.custo_cabeca_mes * p.meses + valor_hoje * fator_juros(p.cdi_aa, p.meses)
-    liquido = valor_futuro - custo
+    ganho_segurando = valor_futuro - custo - valor_hoje
+    x0 = p.fracao_para_contas
     return pd.DataFrame(
         {
             "valor_hoje": valor_hoje,
             "valor_futuro": valor_futuro,
             "custo": custo,
-            "ganho_cabeca": liquido - valor_hoje,
+            "ganho_cabeca": (1 - x0) * ganho_segurando,
         }
     )

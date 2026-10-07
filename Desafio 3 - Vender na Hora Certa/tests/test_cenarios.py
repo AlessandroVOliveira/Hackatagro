@@ -106,6 +106,45 @@ def test_gado_preco_parado_sem_ganho_de_peso_perde_custos():
     assert r["ganho_cabeca"].iloc[0] == pytest.approx(-150)
 
 
+def test_gado_sem_contas_nao_forca_venda():
+    p = c.ParametrosGado(
+        cabecas=10, peso_kg=450, preco_arroba=300, meses=3,
+        ganho_kg_dia=0, custo_cabeca_mes=50, cdi_aa=0.0,
+    )
+    assert p.fracao_para_contas == 0
+    assert p.cabecas_para_contas == 0
+
+
+def test_gado_contas_forcam_venda_parcial_do_lote():
+    # valor por cabeça hoje = (450*0.5/15) * 300 = 4.500; lote = 45.000
+    p = c.ParametrosGado(
+        cabecas=10, peso_kg=450, preco_arroba=300, meses=3,
+        ganho_kg_dia=0, custo_cabeca_mes=50, cdi_aa=0.0,
+        contas_vencem=13_500.0,  # 30% do lote
+    )
+    assert p.fracao_para_contas == pytest.approx(0.3)
+    assert p.cabecas_para_contas == 3  # arredonda para cima
+
+    r = c.segurar_gado(p, fatores_constantes(1.0))
+    sem_contas = c.segurar_gado(
+        c.ParametrosGado(**{**p.__dict__, "contas_vencem": 0.0}), fatores_constantes(1.0)
+    )
+    # ganho médio do lote cai na mesma proporção do que foi vendido agora
+    assert r["ganho_cabeca"].iloc[0] == pytest.approx(0.7 * sem_contas["ganho_cabeca"].iloc[0])
+
+
+def test_gado_contas_maiores_que_o_lote_vende_tudo():
+    p = c.ParametrosGado(
+        cabecas=10, peso_kg=450, preco_arroba=300, meses=3,
+        ganho_kg_dia=0, custo_cabeca_mes=50, cdi_aa=0.0,
+        contas_vencem=1_000_000.0,
+    )
+    assert p.fracao_para_contas == 1.0
+    assert p.cabecas_para_contas == 10
+    r = c.segurar_gado(p, fatores_constantes(1.0))
+    assert r["ganho_cabeca"].iloc[0] == pytest.approx(0.0)
+
+
 def test_sazonalidade_razao_contra_media_da_colheita():
     datas = pd.date_range("2020-01-01", "2021-12-31", freq="D")
     # mar/abr = 100, depois 110

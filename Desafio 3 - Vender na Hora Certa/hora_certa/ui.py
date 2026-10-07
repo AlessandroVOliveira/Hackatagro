@@ -189,6 +189,11 @@ button[data-baseweb="tab"][aria-selected="true"] p {{ color: var(--lavoura); }}
 .hc-instrumentos dd {{ margin: 0.15rem 0 0; color: var(--tinta-suave); max-width: 36em; }}
 .hc-nota {{ font-size: 0.85rem; color: var(--tinta-suave); margin-top: 1.25rem; }}
 
+.hc-aviso {{
+  background: var(--lavoura-claro); border-left: 3px solid var(--lavoura); border-radius: 0 6px 6px 0;
+  padding: 0.75rem 1rem; margin: 0 0 1.25rem; font-size: 0.95rem; line-height: 1.5;
+}}
+
 @media (max-width: 640px) {{
   [data-testid="stMainBlockContainer"], .block-container {{ padding: 1rem 1rem 3rem; }}
   /* campos em pares continuam lado a lado no celular: o resultado fica mais perto */
@@ -379,6 +384,11 @@ def instrumentos(itens: list[tuple[str, str]]) -> None:
 
 def nota(texto: str) -> None:
     _html(f'<p class="hc-nota">{escape(texto)}</p>')
+
+
+def aviso(html: str) -> None:
+    """Destaque com HTML (ex.: <b>) já formatado pelo chamador."""
+    _html(f'<div class="hc-aviso">{html}</div>')
 
 
 # ----------------------------------------------------------------- gráficos

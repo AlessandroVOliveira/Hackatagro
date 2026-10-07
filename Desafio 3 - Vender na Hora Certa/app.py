@@ -223,6 +223,11 @@ with aba_gado:
             "Troque pelo preço que você recebe no RS.",
         )
         meses_gado = st.slider("Segurar por (meses)", 1, 12, 4)
+        contas_gado = st.number_input(
+            "Contas que vencem agora (R$)", 0.0, 1e9, 60_000.0, step=5_000.0, format="%.0f",
+            help="O que precisa ser pago já: a pressão que obriga a vender parte do lote mesmo "
+            "sem ser o melhor momento.",
+        )
         with st.expander("Ganho de peso e custos"):
             c1, c2 = pares()
             ganho_dia = c1.number_input("Ganho de peso (kg/dia)", 0.0, 2.0, 0.5, step=0.05)
@@ -232,14 +237,22 @@ with aba_gado:
     pg = cen.ParametrosGado(
         cabecas=cabecas, peso_kg=peso, preco_arroba=preco_arroba, meses=meses_gado,
         ganho_kg_dia=ganho_dia, custo_cabeca_mes=custo_cab, cdi_aa=cdi,
-        rendimento_carcaca=rendimento,
+        rendimento_carcaca=rendimento, contas_vencem=contas_gado,
     )
     fatores_boi = saz.fatores_por_ano(precos_boi, (mes_atual,), horizonte=12, anos=anos_hist)
     g = cen.segurar_gado(pg, fatores_boi)["ganho_cabeca"]
     mes_venda = saz.nome_mes(mes_atual, meses_gado)
     anos_bons = int((g > 0).sum())
+    cab_vender = pg.cabecas_para_contas
+    cab_segurar = cabecas - cab_vender
 
     with col_result:
+        if cab_vender > 0:
+            ui.aviso(
+                f"Para cobrir as contas, venda <b>{cab_vender} cabeças agora</b> "
+                f"({brl(cab_vender * pg.valor_cabeca_hoje, 0)} de caixa) e segure as outras "
+                f"<b>{cab_segurar}</b>. O ganho abaixo já é a média do lote inteiro."
+            )
         v1, v2 = st.columns([1.25, 1], gap="large")
         with v1:
             if g.median() > 0 and anos_bons > len(g) / 2:
