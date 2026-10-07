@@ -41,7 +41,7 @@ CSS = f"""
 
 [data-testid="stHeader"] {{ background: transparent; height: 0; }}
 [data-testid="stMainBlockContainer"], .block-container {{
-  max-width: 720px; padding: 1.5rem 1.25rem 4rem;
+  max-width: none; padding: 1.75rem clamp(1.25rem, 3vw, 3.5rem) 4rem;
 }}
 
 .stApp h2 {{
@@ -81,6 +81,24 @@ button[data-baseweb="tab"][aria-selected="true"] p {{ color: var(--lavoura); }}
 .hc-marca span {{ color: var(--tinta-suave); font-size: 0.95rem; }}
 
 .hc-safra {{ border-top: 2px solid var(--tinta); padding: 0.9rem 0 0.25rem; margin-bottom: 0.5rem; }}
+.hc-topo {{ margin-bottom: 0.5rem; }}
+@media (min-width: 900px) {{
+  .hc-topo {{
+    display: grid; grid-template-columns: 1fr minmax(360px, 34rem); gap: 3rem; align-items: end;
+    border-bottom: 2px solid var(--tinta); padding-bottom: 1rem; margin-bottom: 0.25rem;
+  }}
+  .hc-topo .hc-marca {{ margin-bottom: 0; }}
+  .hc-topo .hc-marca b {{ font-size: 2.6rem; }}
+  .hc-topo .hc-safra {{ border-top: 0; padding: 0; margin: 0; }}
+  .hc-topo .hc-safra p {{ margin-bottom: 1.4rem; }}
+  [data-baseweb="tab-list"] {{ border-bottom: 0; }}
+  /* a coluna de campos acompanha a rolagem dos resultados */
+  [data-testid="stColumn"]:has([class*="st-key-campos"]) {{
+    position: sticky; top: 1rem; align-self: flex-start;
+  }}
+}}
+@media (min-width: 1700px) {{ html {{ font-size: 17px; }} }}
+@media (min-width: 2200px) {{ html {{ font-size: 19px; }} }}
 .hc-safra p {{ margin: 0 0 0.75rem; }}
 .hc-trilho {{ display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.75rem; }}
 .hc-ponto small {{ display: block; color: var(--tinta-suave); font-size: 0.8rem; }}
@@ -97,14 +115,15 @@ button[data-baseweb="tab"][aria-selected="true"] p {{ color: var(--lavoura); }}
   font-weight: 700; font-size: 0.95rem; white-space: nowrap; color: var(--casca);
 }}
 
-.hc-veredito {{ margin: 1.5rem 0 0.5rem; }}
+.hc-veredito {{ margin: 1.5rem 0 0.5rem; container-type: inline-size; }}
 .hc-veredito .rotulo {{ font-size: 1rem; color: var(--tinta-suave); margin: 0; }}
 .hc-numero {{
-  font-size: clamp(3.4rem, 15vw, 6.2rem); font-weight: 900; font-stretch: 62%;
+  font-size: clamp(2.6rem, 19cqi, 6.4rem); font-weight: 900; font-stretch: 62%;
   line-height: 0.92; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
   margin: 0.15rem 0 0.35rem;
+  display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.3rem;
 }}
-.hc-numero small {{ font-size: 0.32em; font-weight: 700; font-stretch: 85%; letter-spacing: 0; margin-left: 0.25rem; white-space: nowrap; display: inline-block; }}
+.hc-numero small {{ font-size: 0.32em; font-weight: 700; font-stretch: 85%; letter-spacing: 0; white-space: nowrap; line-height: 1.15; }}
 .hc-numero.ganho {{ color: var(--lavoura); }}
 .hc-numero.perda {{ color: var(--barro); }}
 .hc-veredito .frase {{ font-size: 1.1rem; line-height: 1.45; max-width: 36em; margin: 0; }}
@@ -149,10 +168,11 @@ button[data-baseweb="tab"][aria-selected="true"] p {{ color: var(--lavoura); }}
 .hc-meta .alerta {{ color: var(--barro); font-weight: 700; }}
 .hc-legenda {{ font-size: 0.85rem; color: var(--tinta-suave); margin: 0.6rem 0 0; }}
 
-.hc-numeros {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1rem 0; }}
+.hc-numeros {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1rem 0; container-type: inline-size; }}
+.hc-numeros.topo {{ margin-top: 2.6rem; }}
 .hc-numeros div {{ border-left: 3px solid var(--nevoa); padding-left: 0.6rem; }}
 .hc-numeros small {{ display: block; font-size: 0.8rem; color: var(--tinta-suave); }}
-.hc-numeros strong {{ font-size: 1.2rem; font-weight: 800; font-stretch: 80%; font-variant-numeric: tabular-nums; }}
+.hc-numeros strong {{ font-size: clamp(0.95rem, 5.2cqi, 1.3rem); font-weight: 800; font-stretch: 80%; font-variant-numeric: tabular-nums; white-space: nowrap; }}
 .hc-numeros strong.perda {{ color: var(--barro); }}
 .hc-numeros strong.ganho {{ color: var(--lavoura); }}
 
@@ -163,15 +183,17 @@ button[data-baseweb="tab"][aria-selected="true"] p {{ color: var(--lavoura); }}
 .hc-taxa.destaque i {{ background: var(--barro); }}
 .hc-taxa b {{ text-align: right; font-variant-numeric: tabular-nums; }}
 
-.hc-instrumentos dt {{ font-weight: 700; margin-top: 0.9rem; }}
+.hc-instrumentos {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0 2.5rem; margin: 0; }}
+.hc-instrumentos div {{ border-top: 1px solid var(--nevoa); padding: 0.9rem 0; }}
+.hc-instrumentos dt {{ font-weight: 700; }}
 .hc-instrumentos dd {{ margin: 0.15rem 0 0; color: var(--tinta-suave); max-width: 36em; }}
 .hc-nota {{ font-size: 0.85rem; color: var(--tinta-suave); margin-top: 1.25rem; }}
 
 @media (max-width: 640px) {{
   [data-testid="stMainBlockContainer"], .block-container {{ padding: 1rem 1rem 3rem; }}
   /* campos em pares continuam lado a lado no celular: o resultado fica mais perto */
-  [data-testid="stHorizontalBlock"] {{ flex-wrap: nowrap !important; gap: 0.6rem !important; }}
-  [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
+  [class*="st-key-campos"] [data-testid="stHorizontalBlock"] {{ flex-wrap: nowrap !important; gap: 0.6rem !important; }}
+  [class*="st-key-campos"] [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {{
     min-width: 0 !important; width: auto !important; flex: 1 1 0 !important;
   }}
   [data-testid="stNumberInput"] button {{ width: 2rem; }}
@@ -179,7 +201,6 @@ button[data-baseweb="tab"][aria-selected="true"] p {{ color: var(--lavoura); }}
   .hc-meses, .hc-eixo {{ gap: 2px; }}
   .hc-eixo span, .hc-mes em {{ font-size: 0.64rem; }}
   .hc-numeros {{ gap: 0.5rem; }}
-  .hc-numeros strong {{ font-size: 1.02rem; }}
   .hc-numeros small {{ font-size: 0.74rem; }}
   .hc-taxa {{ grid-template-columns: 7rem 1fr 4rem; gap: 0.5rem; }}
   .hc-taxa span {{ font-size: 0.85rem; }}
@@ -218,20 +239,15 @@ def classe(valor: float) -> str:
 # ------------------------------------------------------------- componentes
 
 
-def marca() -> None:
-    _html(
-        """
-        <div class="hc-marca"><b>Hora Certa</b>
-        <span>Quanto custa vender na pressa, e como esperar sem atrasar as contas.</span></div>
-        """
-    )
-
-
-def safra(ano: int, preco_colheita: float, preco_hoje: float, data_hoje: str) -> None:
+def cabecalho(ano: int, preco_colheita: float, preco_hoje: float, data_hoje: str) -> None:
+    """Marca e trilho de preço da safra: empilhados no celular, lado a lado na tela larga."""
     var = preco_hoje / preco_colheita - 1
     sinal = "+" if var >= 0 else "−"
     _html(
         f"""
+        <header class="hc-topo">
+        <div class="hc-marca"><b>Hora Certa</b>
+        <span>Quanto custa vender na pressa, e como esperar sem atrasar as contas.</span></div>
         <section class="hc-safra" aria-label="Preço do arroz na safra {ano}">
         <p>Arroz em casca no RS, safra {ano}</p>
         <div class="hc-trilho">
@@ -240,6 +256,7 @@ def safra(ano: int, preco_colheita: float, preco_hoje: float, data_hoje: str) ->
         <div class="hc-ponto hoje"><small>{escape(data_hoje)}</small><strong>{brl(preco_hoje)}</strong></div>
         </div>
         </section>
+        </header>
         """
     )
 
@@ -335,13 +352,13 @@ def cenarios(linhas: list[dict], unidade: str = "por saca") -> None:
     )
 
 
-def numeros(itens: list[tuple[str, str, str]]) -> None:
+def numeros(itens: list[tuple[str, str, str]], topo: bool = False) -> None:
     """Linha de números de apoio: (rótulo, valor, classe css)."""
     cel = "".join(
         f'<div><small>{escape(r)}</small><strong class="{c}">{escape(v)}</strong></div>'
         for r, v, c in itens
     )
-    _html(f'<div class="hc-numeros">{cel}</div>')
+    _html(f'<div class="hc-numeros{" topo" if topo else ""}">{cel}</div>')
 
 
 def taxas(itens: list[tuple[str, float, bool]]) -> None:
@@ -356,7 +373,7 @@ def taxas(itens: list[tuple[str, float, bool]]) -> None:
 
 
 def instrumentos(itens: list[tuple[str, str]]) -> None:
-    corpo = "".join(f"<dt>{escape(t)}</dt><dd>{escape(d)}</dd>" for t, d in itens)
+    corpo = "".join(f"<div><dt>{escape(t)}</dt><dd>{escape(d)}</dd></div>" for t, d in itens)
     _html(f'<dl class="hc-instrumentos">{corpo}</dl>')
 
 
@@ -383,7 +400,7 @@ def faixa_por_mes(meses: list[str], pior, mediana, melhor, eixo_y: str, dica: st
     fig.update_layout(
         font=dict(family=FONTE, color=TINTA, size=13),
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-        height=300, margin=dict(l=4, r=4, t=30, b=4),
+        height=340, margin=dict(l=4, r=4, t=30, b=4),
         title=dict(text=eixo_y, font=dict(size=13, color=TINTA_SUAVE), x=0, xanchor="left", y=0.98),
         yaxis=dict(gridcolor=NEVOA, zeroline=False, tickformat=",.0f", automargin=True),
         xaxis=dict(showgrid=False, fixedrange=True),
