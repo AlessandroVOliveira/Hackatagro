@@ -67,11 +67,10 @@ preço.**
 
 | Pergunta | Resposta |
 |---|---|
-| O que precisamos descobrir primeiro? | Se o produtor **confia no número e muda a decisão** de venda, e se os custos/premissas batem com a realidade local. |
-| Qual ação o usuário precisa realizar no MVP? | Informar a safra e ver os três cenários com o veredito (quanto perde / vale esperar / como pagar). |
-| Qual parte precisa funcionar de verdade? | O **cálculo do resultado líquido por saca** com dados reais (CEPEA + juros do Banco Central). |
-| O que pode ser simulado/manual? | Os custos locais (valores padrão editáveis), a parte de crédito (lista informativa) e o gado (sazonalidade de referência). |
-| O que NÃO vamos construir agora? | Previsão de preço, integração com banco/cooperativa e app nativo. |
+| Qual hipótese queremos testar? | Mostrar o **custo líquido de esperar** junto com o **crédito de estocagem (FEE/EGF)** faz o produtor mudar a decisão de venda em relação ao que faria sem o app — não é só "ele confia no número", é a combinação conta + crédito que muda o comportamento. |
+| Qual função central precisa funcionar de verdade? | O **cálculo do resultado líquido por saca/cabeça** com dados reais (CEPEA arroz e boi + juros do Banco Central), pior/mediana/melhor ano e a recomendação entre os cenários. Já está pronto e testado (14 testes automatizados). |
+| O que pode ser simulado/manual agora? | Custos locais (armazenagem, secagem, frete — valores padrão **editáveis**); crédito (FEE/EGF, CPR, CDA/WA — lista informativa, sem integração bancária); validação da hipótese (feita em oficina/entrevista, sem telemetria no app); preço do boi no RS (usa CEPEA/ESALQ-SP como proxy até existir série NESPRO/UFRGS). |
+| O que NÃO entra agora? | Previsão de preço futuro, concessão/integração de crédito real, app nativo, armazenagem como restrição física (só citada na narrativa), custo sazonal do gado no inverno, simulação de Pronamp/Pronaf por porte. |
 
 ---
 
@@ -79,8 +78,8 @@ preço.**
 
 | Pergunta | Resposta |
 |---|---|
-| Quem vai testar primeiro? | 5 a 10 orizicultores de Alegrete + 2 técnicos (Emater/Sebrae). |
-| O que farão e em qual situação real? | Rodar a simulação com a própria safra na janela de colheita (mar/abr) e dizer se mudariam a decisão de venda. |
+| Quem será o primeiro usuário? | 5 a 10 orizicultores de Alegrete + 2 técnicos (Emater/Sebrae), e agora também **1 a 2 pecuaristas** — a aba Gado ganhou gatilho de caixa (vender parte do lote para cobrir contas) e precisa ser validada, não só o arroz. |
+| O que farão e em qual situação real? | Rodar a simulação com a própria safra/lote na janela de colheita (mar/abr) e dizer se mudariam a decisão de venda. |
 | Por quanto tempo / quantas vezes? | Em uma oficina ou durante a colheita; cada um roda 1 a 2 cenários próprios. |
 | Qual UMA medida e qual valor mínimo? | **% que diz que o número mudaria ou ajudaria a decisão** — sinal positivo se **≥ 60%** (ao menos 6 de 10). |
 | E a próxima decisão? | Se atingir: buscar parceria (cooperativa/sindicato) e validar custos. Se não: revisar premissas e a clareza do resultado. |
