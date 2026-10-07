@@ -65,9 +65,9 @@ Os quatro desafios têm protótipo. Os desafios 2, 3 e 4 também têm pitch em P
 2. **Quanto custa esperar?** Armazenagem, secagem, quebra, frete e custo do dinheiro.
 3. **Como eu pago as contas enquanto espero?** EGF, CPR, CDA/WA, venda escalonada e o custo real do adiantamento.
 
-**Protótipo:** app em Streamlit com dados reais do CEPEA e do Banco Central. Instruções em [`Desafio 3 - Vender na Hora Certa/`](<Desafio 3 - Vender na Hora Certa/README.md>).
+**Protótipo:** app em Streamlit com dados reais do CEPEA e do Banco Central. Instruções em [`Desafio_3_Vender_na_Hora_Certa/`](<Desafio_3_Vender_na_Hora_Certa/README.md>). Rodando em [entressafra-proto.streamlit.app](https://entressafra-proto.streamlit.app/).
 
-📄 [Proposta completa](<Desafio 3 - Vender na Hora Certa/Proposta - Hora Certa.pdf>)
+📄 [Proposta completa](<Desafio_3_Vender_na_Hora_Certa/Proposta - Hora Certa.pdf>)
 
 ---
 

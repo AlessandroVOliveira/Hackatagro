@@ -85,6 +85,21 @@
   .trio figure{ display:flex; flex-direction:column; gap:4mm; }
   .trio figcaption{ font-size:12pt; color:var(--suave); line-height:1.4; }
   .trio figcaption b{ color:var(--lavoura); }
+
+  /* slide final: obrigado + QR do protótipo */
+  .obrigado{ background:var(--lavoura2); color:#fff; }
+  .obrigado .conteudo{ flex:1; display:flex; align-items:center; }
+  .obrigado .grid{ display:grid; grid-template-columns:1.3fr 0.9fr; gap:14mm; align-items:center; width:100%; }
+  .obrigado .kicker{ color:var(--casca-claro); }
+  .obrigado h2{ color:#fff; font-size:46pt; margin-top:3mm; }
+  .obrigado .lead{ color:rgba(255,255,255,.85); font-size:15pt; max-width:140mm; }
+  .obrigado .link{ font-size:15pt; font-weight:800; color:var(--casca-claro); margin-top:6mm; letter-spacing:.01em; }
+  .obrigado .qr-col{ display:flex; justify-content:center; }
+  .obrigado .qr-card{ background:#fff; padding:8mm; border-radius:6mm; display:inline-flex;
+    box-shadow:0 3mm 10mm rgba(0,0,0,.3); }
+  .obrigado .qr-card img{ width:58mm; height:58mm; display:block; }
+  .obrigado .meta{ color:rgba(255,255,255,.75); font-size:12pt; border-top:1px solid rgba(255,255,255,.25);
+    padding-top:4mm; }
 </style>
 </head>
 <body>
@@ -269,6 +284,26 @@
 <section class="slide frase-slide">
   <p class="frase">Hoje é a falta de caixa que decide a hora de vender. <span class="light">O Entressafra devolve essa
     decisão ao produtor, com números: quanto custa a pressa e como esperar sem atrasar as contas.</span></p>
+</section>
+
+<!-- 13. OBRIGADO -->
+<section class="slide obrigado">
+  <div class="conteudo">
+    <div class="grid">
+      <div>
+        <p class="kicker">Obrigado</p>
+        <h2>Teste o Entressafra</h2>
+        <p class="lead">Aponte a câmera do celular para o QR code e rode a simulação com a sua própria safra ou lote.</p>
+        <p class="link">entressafra-proto.streamlit.app</p>
+      </div>
+      <div class="qr-col">
+        <div class="qr-card">
+          <img src="assets/qr-entressafra.png" alt="QR code para https://entressafra-proto.streamlit.app/">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="meta">HackatAgro × Sebrae RS · Alegrete/RS</div>
 </section>
 
 </body>
