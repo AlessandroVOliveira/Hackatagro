@@ -1,6 +1,6 @@
-# Desafio 3 · Hora Certa
+# Desafio 3 · Entressafra
 
-Simulador de comercialização que mostra, em R$ por saca e por cabeça, quanto custa vender por falta de caixa. Proposta completa: [Proposta - Hora Certa.pdf](<Proposta - Hora Certa.pdf>).
+Simulador de comercialização que mostra, em R$ por saca e por cabeça, quanto custa vender por falta de caixa. Proposta completa: [Proposta - Hora Certa.pdf](<Proposta - Hora Certa.pdf>) (Hora Certa era o nome provisório). Pitch: [Pitch - Entressafra.pdf](<Pitch - Entressafra.pdf>).
 
 ## Como rodar
 
