@@ -1,64 +1,71 @@
 # HackatAgro × Sebrae RS · Alegrete/RS
 
-Repositório da equipe para o HackatAgro. Avaliamos três desafios e escolhemos o **Desafio 3: Vender na Hora Certa**.
+Repositório da equipe para o HackatAgro. Aqui ficam as propostas e os protótipos dos três desafios que estamos trabalhando. Cada desafio tem sua própria pasta, com a proposta em PDF e, quando houver, o código.
 
-## Proposta escolhida: Hora Certa
+| Desafio | Proposta | Status |
+|---|---|---|
+| 1 · Bioeconomia & Energia | [Energia da Porteira](#desafio-1--energia-da-porteira) | Proposta |
+| 3 · Novas Cadeias | [Hora Certa](#desafio-3--hora-certa) | **Protótipo em desenvolvimento** |
+| 4 · IA no Campo · Conectividade | [Conta do Talhão](#desafio-4--conta-do-talhão) | Proposta |
+
+Começamos pelo Desafio 3.
+
+---
+
+## Desafio 1 · Energia da Porteira
+
+> Inventário de resíduos, simulador de payback e consórcio de vizinhos para transformar biomassa em energia ou renda.
+
+**Pergunta:** como transformar a biomassa que a propriedade já gera (casca e palha de arroz, esterco, resto de lavoura) em energia mais barata ou renda nova para o produtor?
+
+**Problema:** a energia representa 7% do custo do arroz (R$ 1.124/ha) e a água mais 9%, enquanto palha e esterco ficam parados na propriedade. As causas são de informação e coordenação, não de tecnologia. O produtor não sabe quanto resíduo tem nem quanto ele vale, as usinas exigem uma escala que uma propriedade sozinha não alcança, e falta quem junte o volume dos vizinhos.
+
+**Solução em três camadas:**
+1. **Inventário de resíduos:** com 4 ou 5 perguntas, estima toneladas por ano de palha, casca e esterco e o potencial energético.
+2. **Simulador de rotas:** compara venda do resíduo, briquete/pellet, biodigestor e queima para secagem própria, com investimento e payback de cada rota.
+3. **Consórcio de vizinhos:** mapa que soma o volume num raio e avisa quando o grupo atinge a escala mínima. Pode usar a geração distribuída compartilhada (Lei 14.300/2022).
+
+**MVP:** calculadora web, gráfico de payback por perfil e mapa do consórcio (HTML/JS ou Streamlit + Leaflet).
+
+📄 [Proposta completa](<Desafio 1 - Energia da Porteira/Proposta - Energia da Porteira.pdf>)
+
+---
+
+## Desafio 3 · Hora Certa
 
 > Simulador de comercialização que mostra, em R$ por saca e por cabeça, o custo de vender por falta de caixa.
 
-**Pergunta do desafio:** como podemos ajudar o produtor a escolher quando e como vender o arroz e o gado, para que a falta de dinheiro deixe de decidir por ele?
+**Pergunta:** como ajudar o produtor a escolher quando e como vender o arroz e o gado, para que a falta de dinheiro deixe de decidir por ele?
 
-### O problema
+**Problema:** a colheita do arroz se concentra em março e abril, quando o preço está no ponto mais baixo e as contas vencem. Sem armazém próprio e muitas vezes preso a adiantamentos, o produtor vende na pressa. No gado acontece o mesmo. Com custo perto de R$ 15 mil/ha, poucos reais por saca separam lucro de prejuízo.
 
-A colheita do arroz se concentra em março e abril, justamente quando o preço está no ponto mais baixo do ano e as contas vencem. Sem secador nem armazém próprio, e muitas vezes preso a adiantamentos, o produtor vende na pressa. No gado acontece o mesmo: ele vende quando falta dinheiro, não quando o preço está bom.
+**Solução:** simulador que responde três perguntas:
+1. **Quanto eu perco vendendo agora?** Histórico CEPEA mostrando o pior ano, a mediana e o melhor ano.
+2. **Quanto custa esperar?** Armazenagem, secagem, quebra, frete e custo do dinheiro.
+3. **Como eu pago as contas enquanto espero?** EGF, CPR, CDA/WA, venda escalonada e o custo real do adiantamento.
 
-O produtor não enxerga quanto custa vender na pressa. Com custo de produção perto de R$ 15 mil/ha (cerca de R$ 88/saca), poucos reais por saca separam lucro de prejuízo.
+**Protótipo:** app em Streamlit com dados reais do CEPEA e do Banco Central. Instruções em [`Desafio 3 - Vender na Hora Certa/`](<Desafio 3 - Vender na Hora Certa/README.md>).
 
-### A solução
+📄 [Proposta completa](<Desafio 3 - Vender na Hora Certa/Proposta - Hora Certa.pdf>)
 
-Um simulador simples (página web ou bot de mensagens) que responde três perguntas:
+---
 
-1. **Quanto eu perco vendendo agora?** Compara o preço da colheita com o histórico dos meses seguintes (indicador CEPEA/Esalq do arroz em casca no RS) e mostra o melhor, o médio e o pior cenário.
-2. **Quanto custa esperar?** Desconta armazenagem e secagem de terceiros, quebra técnica, frete e custo do dinheiro (juros ou CDI perdido).
-3. **Como eu pago as contas enquanto espero?** Mostra as alternativas de caixa: EGF do Plano Safra, CPR, CDA/WA e venda parcelada.
+## Desafio 4 · Conta do Talhão
 
-O resultado é um plano de venda em R$/saca, por exemplo: *"venda 40% agora para cobrir as contas de abril, financie a estocagem dos outros 60% e venda entre julho e setembro"*.
+> Custo e resultado por talhão e por lote, registrados com uma foto ou um áudio, mesmo com sinal fraco.
 
-### Cenários comparados
+**Pergunta:** como dar ao produtor, com o celular e o sinal que ele tem, quanto custa e quanto rende cada área e cada lote de animais?
 
-| Cenário | Como é calculado |
-|---|---|
-| Vender tudo na colheita | Preço médio histórico de mar/abr (referência) |
-| Armazenar e vender na entressafra | Preço do mês-alvo − armazenagem − quebra − juros |
-| Financiar a estocagem | Ganho sazonal − juros do financiamento; mostra o caixa liberado na colheita |
-| Venda escalonada (ex.: 30/30/40) | Média ponderada dos cenários, reduz o risco de errar o mês |
-| Gado: vender agora × segurar N meses | Ganho de peso × preço futuro histórico − custo de manutenção |
+**Problema:** o produtor sabe quanto colheu, mas não quanto custou cada talhão. Adubo, água e energia somam 31% do custo e variam muito entre áreas. Os dados estão espalhados em cadernos, notas e contas de luz, e qualquer solução que exija digitar planilhas fracassa.
 
-### MVP para o dia
+**Solução:** o produtor manda foto da nota fiscal, áudio ("passei 200 kg de ureia no talhão 3"), conta de luz da bomba ou romaneio, e a IA transforma tudo em lançamentos de custo por talhão. Funciona offline (PWA) ou por Telegram. Gera painel por talhão, alertas ("o talhão 7 gastou 40% mais energia que a média") e relatório para o banco.
 
-- **Dados:** série CEPEA do arroz em casca no RS; preços de boi e terneiro do RS (NESPRO/UFRGS ou Emater); Selic/CDI pela API do Banco Central.
-- **Motor de cálculo:** Python + pandas, com sazonalidade mensal (média, mínimo e máximo) e conta líquida de cada cenário.
-- **Interface:** Streamlit ou página web com 5 campos (sacas, custo/ha, contas e datas, acesso a armazém, taxa de juros) e gráfico de barras em R$/saca por cenário.
-- **Extra:** bot no Telegram que responde "quanto perco vendendo hoje?".
+**MVP:** PWA/Telegram, extração com IA multimodal, FastAPI + SQLite, painel web.
 
-### Riscos
+📄 [Proposta completa](<Desafio 4 - Quanto Rende Este Hectare/Proposta - Conta do Talhao.pdf>)
 
-| Risco | Como tratamos |
-|---|---|
-| Passado não garante preço futuro | Mostrar faixas (melhor, médio, pior ano), nunca uma previsão única |
-| Produtor preso a adiantamento | Calcular o custo implícito do adiantamento e comparar com crédito formal |
-| Falta de armazém na região | Mapa de armazéns (base Conab) com cálculo de frete |
-| Parecer "só uma calculadora" | Pitch focado na decisão e no valor em R$ na safra do produtor |
+---
 
-**Pitch:** vender na colheita tem um preço, e o produtor nunca viu esse número. O Hora Certa mostra quanto vale esperar, em R$ por saca, e como pagar as contas enquanto espera.
+## Como os desafios se conectam
 
-Proposta completa: [Proposta - Hora Certa.pdf](<Desafio 3 - Vender na Hora Certa/Proposta - Hora Certa.pdf>)
-
-## Outras propostas avaliadas
-
-| Desafio | Proposta | Resumo |
-|---|---|---|
-| 1 · Bioeconomia & Energia | [Energia da Porteira](<Desafio 1 - Energia da Porteira/Proposta - Energia da Porteira.pdf>) | Inventário de resíduos, simulador de payback e consórcio de vizinhos para transformar biomassa em energia ou renda |
-| 4 · IA no Campo · Conectividade | [Conta do Talhão](<Desafio 4 - Quanto Rende Este Hectare/Proposta - Conta do Talhao.pdf>) | Custo e resultado por talhão e por lote, registrados com foto ou áudio, mesmo com sinal fraco |
-
-O Conta do Talhão (Desafio 4) pode ser integrado ao Hora Certa no futuro, para usar o custo real por saca de cada talhão em vez da média de R$ 15 mil/ha.
+O **Conta do Talhão** (4) calcula o custo real por saca de cada área, e esse custo pode alimentar o **Hora Certa** (3) no lugar da média de R$ 15 mil/ha. Já o **Energia da Porteira** (1) ataca o maior item de custo variável da lavoura irrigada, que o Conta do Talhão ajuda a medir.
