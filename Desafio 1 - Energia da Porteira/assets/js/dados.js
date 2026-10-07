@@ -19,7 +19,7 @@ function faixa(min, med, max, unid, fonte) {
 
 const COEFICIENTES = {
   arroz: {
-    produtividade: faixa(7.0, 8.5, 10.0, "t/ha", "IRGA — produtividade média do arroz irrigado no RS."),
+    produtividade: faixa(7.0, 8.5, 10.0, "t/ha", "IRGA: produtividade média do arroz irrigado no RS."),
     casca_fracao: faixa(0.18, 0.20, 0.22, "t casca / t arroz", "Casca ≈ 20% do peso do grão (Emater/RS; estudo Redalyc)."),
     palha_grao: faixa(0.75, 1.0, 1.5, "t palha / t grão", "Relação palha/grão do arroz (literatura)."),
     palha_recolhivel: faixa(0.30, 0.40, 0.50, "fração", "Parte da palha que dá para recolher sem tirar a cobertura do solo."),
@@ -104,7 +104,7 @@ const PROPRIEDADES = [
 /* Fontes citadas na tela (seção "Fontes" e premissas). */
 const FONTES = [
   {
-    nome: "Emater/RS — Custos de produção do arroz irrigado (safra 2021/22)",
+    nome: "Emater/RS, Custos de produção do arroz irrigado (safra 2021/22)",
     detalhe: "Energia da irrigação = 7% do custo (R$ 1.124/ha); água = 9% (R$ 1.384/ha).",
   },
   {
@@ -112,7 +112,7 @@ const FONTES = [
     detalhe: "Volume de casca estimado sobre a safra gaúcha: ~1,5 milhão de t/ano no RS (casca ≈ 20% do peso do arroz).",
   },
   {
-    nome: "IRGA — Instituto Rio Grandense do Arroz",
+    nome: "IRGA, Instituto Rio Grandense do Arroz",
     detalhe: "Produtividade média do arroz irrigado no RS.",
   },
   {

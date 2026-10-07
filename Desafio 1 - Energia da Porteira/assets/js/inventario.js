@@ -42,7 +42,7 @@ function renderInventario(inv) {
     const vazio = c.v <= 0.0001;
     const val = c.u === 'm³/ano' ? n0(c.v) : fmtT.format(c.v);
     return `<div class="${vazio ? 'vazio' : ''}"><small>${c.r}</small>` +
-      `<strong>${vazio ? '—' : val}</strong> <span class="u">${vazio ? '' : c.u}</span></div>`;
+      `<strong>${vazio ? '0' : val}</strong> <span class="u">${c.u}</span></div>`;
   }).join('');
 }
 
@@ -53,8 +53,8 @@ function renderTeto(inv) {
   box.style.display = '';
   const v10 = 0.1 * gasto;
   box.innerHTML = `Sua conta de energia da irrigação é de cerca de <b>${brl(gasto)}/ano</b> ` +
-    `(${n0(inv.area)} ha × ${brl(P.energia_ha)}/ha). Cada 10% de redução vale <b>${brl(v10)}/ano</b> — ` +
-    `é o teto que um investimento em energia própria (biodigestor, geração compartilhada) precisa caber para se pagar.`;
+    `(${n0(inv.area)} ha × ${brl(P.energia_ha)}/ha). Cada 10% de redução vale <b>${brl(v10)}/ano</b>. ` +
+    `É o teto que um investimento em energia própria (biodigestor, geração compartilhada) precisa caber para se pagar.`;
 }
 
 function renderFicha(rotas) {

@@ -167,8 +167,17 @@ function iniciar() {
 
   el('raio').addEventListener('input', atualizarConsorcio);
 
-  // resumo compartilhável (feature 4)
-  el('btn-resumo').addEventListener('click', gerarResumo);
+  // resumo compartilhável (feature 4): alterna mostrar/ocultar o cartão
+  el('btn-resumo').addEventListener('click', () => {
+    const saida = el('resumo-saida'), btn = el('btn-resumo');
+    if (saida.hidden) {
+      gerarResumo();
+      btn.textContent = 'Ocultar resumo';
+    } else {
+      saida.hidden = true;
+      btn.textContent = 'Gerar resumo para levar ao banco/comprador';
+    }
+  });
   el('btn-baixar-img').addEventListener('click', baixarResumoImagem);
   el('btn-imprimir').addEventListener('click', () => window.print());
 

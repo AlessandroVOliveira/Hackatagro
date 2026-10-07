@@ -80,10 +80,9 @@ function textoPayback(pb) {
 }
 
 function renderRotas(rotas) {
-  const cont = el('rotas'), eixo = el('rotas-eixo');
+  const cont = el('rotas');
   if (!rotas.length) {
     cont.innerHTML = '<p class="ep-nota">Preencha o inventário (área de arroz ou cabeças de gado) para ver as rotas.</p>';
-    eixo.innerHTML = '';
     return;
   }
   const ordenadas = rotas.slice().sort((a, b) => a.payback - b.payback);
@@ -123,6 +122,4 @@ function renderRotas(rotas) {
       ${atores}
     </article>`;
   }).join('');
-
-  eixo.innerHTML = `<span>0</span><span>payback — menor é melhor</span><span>${axisMax} anos</span>`;
 }

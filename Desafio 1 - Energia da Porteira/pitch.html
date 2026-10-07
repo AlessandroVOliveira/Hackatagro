@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Energia da Porteira — Pitch</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  :root{
+    --lavoura:#1E4D3A; --lavoura2:#163b2c; --lavoura-claro:#CFE0D3;
+    --casca:#C8952B; --casca-claro:#F0E2C4; --barro:#9A3F24;
+    --papel:#FAFAF7; --tinta:#18201B; --suave:#58625B; --nevoa:#E4E8E1; --branco:#fff;
+    --fonte:Inter,system-ui,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @page{ size:A4 landscape; margin:0; }
+  html,body{ font-family:var(--fonte); color:var(--tinta); background:#333; }
+
+  .slide{
+    position:relative; width:297mm; height:210mm; overflow:hidden;
+    background:var(--papel); padding:15mm 18mm 16mm;
+    display:flex; flex-direction:column; page-break-after:always;
+  }
+  .slide:last-child{ page-break-after:auto; }
+  .slide.mid{ justify-content:center; } /* centraliza o conteúdo: preenche sem esticar os cards */
+
+  /* cabeçalho de slide */
+  .kicker{ text-transform:uppercase; letter-spacing:.12em; font-size:11pt; font-weight:800; color:var(--casca); }
+  h2{ font-size:34pt; font-weight:800; letter-spacing:-.02em; margin:1mm 0 7mm; color:var(--lavoura); line-height:1.05; }
+  .lead{ font-size:14.5pt; color:var(--suave); line-height:1.55; }
+
+  /* número da página (único conteúdo do rodapé) */
+  .foot{ position:absolute; right:18mm; bottom:9mm; font-size:11pt; color:var(--suave); font-variant-numeric:tabular-nums; }
+
+  /* grid de cartões (cresce para preencher a página) */
+  .cards{ display:grid; gap:8mm; }
+  .c3{ grid-template-columns:repeat(3,1fr); }
+  .c2{ grid-template-columns:repeat(2,1fr); }
+  .card{ background:var(--branco); border:1px solid var(--nevoa); border-radius:5mm; padding:8mm;
+    box-shadow:0 2mm 6mm rgba(24,32,27,.05); }
+  .card .n{ display:inline-grid; place-items:center; width:11mm; height:11mm; border-radius:50%;
+    background:var(--lavoura-claro); color:var(--lavoura); font-weight:800; font-size:14pt; margin-bottom:5mm; }
+  .card h3{ font-size:17pt; font-weight:800; color:var(--tinta); margin-bottom:3mm; }
+  .card p{ font-size:13pt; color:var(--suave); line-height:1.55; }
+
+  /* números grandes */
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:9mm; }
+  .stat{ border-left:3mm solid var(--casca); padding-left:6mm; }
+  .stat .big{ font-size:40pt; font-weight:900; color:var(--lavoura); letter-spacing:-.02em; line-height:1; }
+  .stat .lbl{ font-size:12.5pt; color:var(--suave); margin-top:3mm; line-height:1.5; }
+
+  .destaque{ background:var(--casca-claro); border-left:3mm solid var(--casca); border-radius:0 4mm 4mm 0;
+    padding:7mm 8mm; margin-top:8mm; font-size:16pt; font-weight:700; color:#6f5114; line-height:1.4; }
+
+  ul.lista{ list-style:none; }
+  ul.lista li{ font-size:13.5pt; line-height:1.55; padding-left:9mm; position:relative; margin-bottom:4mm; color:var(--tinta); }
+  ul.lista li:last-child{ margin-bottom:0; }
+  ul.lista li::before{ content:''; position:absolute; left:0; top:3mm; width:4mm; height:4mm; border-radius:50%; background:var(--lavoura); }
+  ul.lista li b{ color:var(--lavoura); }
+
+  table.tab{ width:100%; border-collapse:collapse; flex:1 1 auto; font-size:13.5pt; }
+  table.tab th{ text-align:left; color:var(--lavoura); border-bottom:2px solid var(--tinta); padding:5mm 4mm; font-size:12pt; }
+  table.tab td{ border-bottom:1px solid var(--nevoa); padding:6mm 4mm; vertical-align:middle; color:var(--tinta); }
+  table.tab td:first-child{ font-weight:700; width:34%; }
+  table.tab b{ color:var(--lavoura); }
+
+  /* ---------- capa ---------- */
+  .capa{ padding:0; }
+  .capa .bg{ position:absolute; inset:0; background:var(--lavoura); }
+  .capa .bg img{ width:100%; height:100%; object-fit:cover; filter:blur(3px); transform:scale(1.06); opacity:.55; }
+  .capa .wash{ position:absolute; inset:0; background:linear-gradient(120deg, rgba(10,18,12,.88) 30%, rgba(10,18,12,.55) 100%); }
+  .capa .in{ position:relative; z-index:2; color:#fff; height:100%; display:flex; flex-direction:column; justify-content:center; padding:0 22mm; }
+  .capa .kicker{ color:var(--casca-claro); }
+  .capa h1{ font-size:66pt; font-weight:900; letter-spacing:-.03em; line-height:1; margin:5mm 0 7mm; }
+  .capa .sub{ font-size:17pt; color:rgba(255,255,255,.92); max-width:205mm; line-height:1.5; }
+  .capa .meta{ position:absolute; z-index:2; left:22mm; right:22mm; bottom:14mm; color:rgba(255,255,255,.85);
+    font-size:12pt; border-top:1px solid rgba(255,255,255,.25); padding-top:4mm; }
+
+  /* ---------- slide só com a frase ---------- */
+  .frase-slide{ justify-content:center; }
+  .frase{ font-size:40pt; font-weight:800; line-height:1.22; letter-spacing:-.015em; color:var(--lavoura); max-width:250mm; }
+  .frase .light{ color:var(--tinta); font-weight:600; }
+</style>
+</head>
+<body>
+
+<!-- 1. CAPA -->
+<section class="slide capa">
+  <div class="bg"><img src="hero.webp" alt=""></div>
+  <div class="wash"></div>
+  <div class="in">
+    <p class="kicker">Desafio 1 · Bioeconomia &amp; Energia</p>
+    <h1>Energia da Porteira</h1>
+    <p class="sub">Inventário de resíduos, simulador de payback e consórcio de vizinhos para transformar a
+      biomassa que a propriedade já gera (palha, casca e esterco) em energia mais barata ou renda nova.</p>
+  </div>
+  <div class="meta">HackatAgro × Sebrae RS · Alegrete/RS</div>
+</section>
+
+<!-- 2. O PROBLEMA -->
+<section class="slide">
+  <p class="kicker">O problema</p>
+  <h2>A conta de luz chega, e o resíduo fica parado</h2>
+  <div class="stats">
+    <div class="stat"><div class="big">7%</div><div class="lbl">do custo do arroz é energia: <b>R$ 1.124/ha</b></div></div>
+    <div class="stat"><div class="big">+9%</div><div class="lbl">é a água da irrigação: <b>R$ 1.384/ha</b></div></div>
+    <div class="stat"><div class="big">1,5 mi t</div><div class="lbl">de casca de arroz por ano no RS</div></div>
+  </div>
+  <p class="lead" style="margin-top:9mm">Na safra, a bomba de irrigação passa meses ligada e a conta de luz chega junto
+    com a do adubo. Ao lado, a palha fica na lavoura, o esterco se acumula no mangueirão e, no engenho, a casca
+    sai de caminhão como resíduo.</p>
+  <div class="destaque" style="margin-top:auto">As causas são de informação e coordenação, não de tecnologia.</div>
+  <div class="foot">2</div>
+</section>
+
+<!-- 3. POR QUE NÃO RESOLVE SOZINHO -->
+<section class="slide mid">
+  <p class="kicker">Por que o problema existe</p>
+  <h2>Três travas, e nenhuma é de tecnologia</h2>
+  <div class="cards c3">
+    <div class="card"><span class="n">1</span><h3>Não sabe quanto tem</h3><p>O produtor não sabe quanto resíduo
+      gera nem quanto ele vale. Sem esse número, nenhuma conversa com comprador, banco ou fornecedor começa.</p></div>
+    <div class="card"><span class="n">2</span><h3>Falta escala</h3><p>As usinas de biomassa são feitas para grande
+      escala. O volume de uma propriedade sozinha quase nunca fecha a conta.</p></div>
+    <div class="card"><span class="n">3</span><h3>Falta coordenação</h3><p>Ninguém junta o volume de vários vizinhos
+      para chegar à escala mínima de uma rota.</p></div>
+  </div>
+  <p class="lead" style="margin-top:8mm"><b>Quem sofre:</b> o orizicultor que paga a luz da bomba, o pecuarista com
+    esterco sem destino e o engenho pequeno com casca parada no pátio.</p>
+  <div class="foot">3</div>
+</section>
+
+<!-- 4. A SOLUÇÃO -->
+<section class="slide mid">
+  <p class="kicker">A solução</p>
+  <h2>Uma ferramenta web, em três camadas</h2>
+  <div class="cards c3">
+    <div class="card"><span class="n">1</span><h3>Inventário de resíduos</h3><p>Com 5 perguntas, estima as toneladas
+      por ano de palha, casca e esterco e o potencial energético (kWh e m³ de biogás).</p></div>
+    <div class="card"><span class="n">2</span><h3>Simulador de rotas</h3><p>Compara vender o resíduo, briquete/pellet,
+      queima para secagem própria e biodigestor, com investimento, R$/ano e <b>payback</b> de cada rota.</p></div>
+    <div class="card"><span class="n">3</span><h3>Consórcio de vizinhos</h3><p>Mapa que soma o volume num raio e avisa
+      quando o grupo atinge a escala mínima de uma rota compartilhada.</p></div>
+  </div>
+  <div class="destaque">Cada camada ataca uma das três travas: valor, escala e coordenação.</div>
+  <div class="foot">4</div>
+</section>
+
+<!-- 5. COMO FUNCIONA -->
+<section class="slide mid">
+  <p class="kicker">Como funciona para o produtor</p>
+  <h2>Do celular à proposta, em três passos</h2>
+  <div class="cards c3">
+    <div class="card"><span class="n">1</span><h3>Responde</h3><p>5 perguntas pelo celular em menos de 3 minutos,
+      sozinho ou com um técnico do Sebrae/Emater em visita.</p></div>
+    <div class="card"><span class="n">2</span><h3>Recebe a ficha</h3><p>"Seus resíduos valem R$ X por ano", com volume,
+      potencial energético e as melhores rotas ordenadas por payback.</p></div>
+    <div class="card"><span class="n">3</span><h3>Junta os vizinhos</h3><p>Se nenhuma rota fecha sozinha, entra no mapa
+      do consórcio. Quando o grupo atinge a escala, todos recebem o aviso.</p></div>
+  </div>
+  <p class="lead" style="margin-top:8mm">Página leve, abre no celular e é preenchível em minutos. Coeficientes e
+    preços são editáveis na própria tela, com faixa e fonte.</p>
+  <div class="foot">5</div>
+</section>
+
+<!-- 6. NÚMEROS -->
+<section class="slide">
+  <p class="kicker">Exemplo ilustrativo · 300 ha de arroz</p>
+  <h2>Quanto isso vale na prática</h2>
+  <div class="stats">
+    <div class="stat"><div class="big">R$ 337 mil</div><div class="lbl">conta de energia da irrigação por ano. Cada
+      10% de redução vale <b>R$ 33,7 mil/ano</b> (o teto de investimento).</div></div>
+    <div class="stat"><div class="big">1.020 t</div><div class="lbl">de palha recolhível por ano, com cerca de
+      <b>3.570 MWh/ano</b> de energia.</div></div>
+    <div class="stat"><div class="big">R$ 156 mil</div><div class="lbl">por ano na melhor rota (briquete de palha).</div></div>
+  </div>
+  <table class="tab" style="margin-top:9mm">
+    <thead><tr><th>Rota</th><th>Retorno</th><th>Payback (pessimista · provável · otimista)</th></tr></thead>
+    <tbody>
+      <tr><td>Queima para secagem própria</td><td>R$ 67,7 mil/ano de economia</td><td>5,1 · <b>0,9</b> · 0,2 anos</td></tr>
+      <tr><td>Briquete de palha</td><td>R$ 156 mil/ano de receita</td><td>não se paga · <b>1,2</b> · 0,1 anos</td></tr>
+      <tr><td>Vender palha enfardada</td><td>R$ 45,9 mil/ano de receita</td><td>não se paga · <b>2,0</b> · 0,2 anos</td></tr>
+    </tbody>
+  </table>
+  <div class="foot">6</div>
+</section>
+
+<!-- 7. CONSÓRCIO -->
+<section class="slide mid">
+  <p class="kicker">Quando a conta não fecha sozinha</p>
+  <h2>O consórcio de vizinhos</h2>
+  <div class="cards c2">
+    <div class="card"><h3>O mapa soma o volume</h3><p>No exemplo de Alegrete, no raio de <b>20 km</b> nove vizinhos
+      mais a sua propriedade somam <b>10.760 t/ano</b> e atingem a escala de uma usina ou briquetagem compartilhada
+      (meta de 5.000 t/ano). O slider mostra o ponto exato em que o grupo fecha a conta.</p></div>
+    <div class="card"><h3>Lei 14.300/2022</h3><p>A geração distribuída compartilhada permite que um consórcio ou
+      cooperativa gere energia numa usina e use os créditos nas contas das unidades dos membros, inclusive as
+      bombas de irrigação. A ferramenta mostra quanto cada vizinho economizaria com a sua cota.</p></div>
+  </div>
+  <div class="destaque">Uma propriedade sozinha já enche um caminhão para venda conjunta. O consórcio existe para
+    chegar à escala da usina.</div>
+  <div class="foot">7</div>
+</section>
+
+<!-- 8. CRITÉRIOS -->
+<section class="slide">
+  <p class="kicker">Atendimento ao desafio</p>
+  <h2>Como cada critério é atendido</h2>
+  <table class="tab">
+    <thead><tr><th>Critério</th><th>Como atendemos</th></tr></thead>
+    <tbody>
+      <tr><td>Reduzir custo de energia ou gerar renda</td><td>Cada rota mostra a economia ou a receita em R$/ano.</td></tr>
+      <tr><td>Funcionar em pequena escala</td><td>Rotas individuais (venda, briquete, secagem, biodigestor) e rota coletiva pelo consórcio.</td></tr>
+      <tr><td>Modelo econômico com payback definido</td><td>Payback por rota e por perfil, com faixa de incerteza e premissas visíveis e editáveis.</td></tr>
+      <tr><td>Viável na realidade regional</td><td>Página leve, abre no celular, preenchível em minutos por um técnico em visita.</td></tr>
+    </tbody>
+  </table>
+  <div class="foot">8</div>
+</section>
+
+<!-- 9. RISCOS E PRÓXIMOS PASSOS -->
+<section class="slide mid">
+  <p class="kicker">Riscos e próximos passos</p>
+  <h2>O que sabemos que falta validar</h2>
+  <div class="cards c2">
+    <div class="card"><h3>Riscos e mitigação</h3>
+      <ul class="lista" style="margin-top:4mm">
+        <li><b>Coeficientes imprecisos:</b> mostramos faixa mín/méd/máx e fontes; validar com IRGA e Emater.</li>
+        <li><b>Pecuária extensiva gera pouco esterco:</b> o inventário pergunta o manejo e só sugere biodigestor onde há esterco concentrado.</li>
+        <li><b>Consórcio não sair do papel:</b> começar pela venda conjunta; sindicatos rurais e Sebrae como articuladores.</li>
+      </ul>
+    </div>
+    <div class="card"><h3>Próximos passos</h3>
+      <ul class="lista" style="margin-top:4mm">
+        <li>Validar coeficientes e preços de resíduo com IRGA, Emater e compradores.</li>
+        <li>Cadastrar compradores reais no mapa: cerâmicas, termelétricas a casca, avicultura.</li>
+        <li>Piloto com um sindicato rural de Alegrete para formar o primeiro consórcio.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot">9</div>
+</section>
+
+<!-- 10. FRASE DE EFEITO -->
+<section class="slide frase-slide">
+  <p class="frase">O produtor já tem a matéria-prima. <span class="light">Só não sabe quanto ela vale nem com quem
+    juntar.</span> O Energia da Porteira dá esse número em 3 minutos e junta os vizinhos até a conta fechar.</p>
+</section>
+
+</body>
+</html>

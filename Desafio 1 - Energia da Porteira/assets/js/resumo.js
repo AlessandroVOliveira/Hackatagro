@@ -38,7 +38,7 @@ function gerarResumo() {
   const c = estado.consorcio;
   const consorcioTxt = c
     ? (c.atingiu
-        ? `No raio de ${c.raio} km, ${c.dentro} vizinhos + você somam ${n0(c.soma)} t/ano — atinge a escala de uma rota compartilhada.`
+        ? `No raio de ${c.raio} km, ${c.dentro} vizinhos + você somam ${n0(c.soma)} t/ano e atingem a escala de uma rota compartilhada.`
         : `No raio de ${c.raio} km, o grupo soma ${n0(c.soma)} t/ano; faltam ${n0(ESCALA.usina_t_ano - c.soma)} t/ano para a escala compartilhada.`)
     : '';
 
@@ -50,7 +50,7 @@ function gerarResumo() {
     ${volumes.length ? `<p class="rc-vol">${volumes.join(' · ')}</p>` : ''}
     ${viaveis.length
       ? `<table class="rc-tab"><thead><tr><th>Melhores rotas</th><th class="num">R$/ano</th><th class="num">Paga em</th></tr></thead><tbody>${linhasRotas}</tbody></table>`
-      : '<p class="rc-vol">Nenhuma rota individual fecha sozinha — veja o consórcio.</p>'}
+      : '<p class="rc-vol">Nenhuma rota individual fecha sozinha. Veja o consórcio.</p>'}
     ${consorcioTxt ? `<p class="rc-cons">${consorcioTxt}</p>` : ''}
     <p class="rc-rodape">Valores de referência a validar com IRGA, Emater e compradores da região.<br>
       Fontes: Emater/RS (safra 2021/22), IRGA, Embrapa e estudo publicado na Redalyc.</p>`;
@@ -73,7 +73,7 @@ function baixarResumoImagem() {
   const msg = el('resumo-msg');
   if (!card.innerHTML.trim()) { gerarResumo(); }
   if (typeof html2canvas === 'undefined') {
-    msg.textContent = 'Geração de imagem indisponível offline — use "Imprimir / PDF".';
+    msg.textContent = 'Geração de imagem indisponível offline. Use "Imprimir / PDF".';
     return;
   }
   msg.textContent = 'Gerando imagem…';
